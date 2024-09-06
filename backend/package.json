@@ -9,10 +9,14 @@
     "@prisma/client": "^5.16.2",
     "@prisma/extension-accelerate": "^1.1.0",
     "hono": "^4.4.12",
-    "prisma": "^5.16.2"
+    "prisma": "^5.16.2",
+    "sanitize-html": "^2.13.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240529.0",
+    "@types/dompurify": "^3.0.5",
+    "@types/jsdom": "^21.1.7",
+    "@types/sanitize-html": "^2.13.0",
     "wrangler": "^3.57.2"
   }
 }

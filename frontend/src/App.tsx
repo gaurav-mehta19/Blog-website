@@ -4,13 +4,16 @@ import { Signin } from "./pages/Signin"
 import { Blog } from "./pages/Blog"
 import { Blogs } from "./pages/Blogs"
 import { Publish } from "./pages/Publish"
+import { Toaster } from 'sonner'
 
 
 function App() {
 
   return (
     <>
+
     <BrowserRouter>
+    <Toaster richColors />
     <Routes>
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/signin" element={<Signin/>}/>

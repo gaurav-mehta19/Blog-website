@@ -17,6 +17,7 @@ model User {
   id String @id @default(uuid())
   email String @unique
   name String?
+  description String?
   password String
   blogs     Blog[]
 }
@@ -27,5 +28,7 @@ model Blog {
   content String
   published Boolean @default(false)
   authorId String
+  image String?
   author User @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
 }

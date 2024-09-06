@@ -9,7 +9,7 @@ export function Blog() {
         id: id || ""
     })
 
-    if (loading) {
+    if (loading || !blog) {
         return <div>
             <Skleton2/>
         </div>
@@ -17,7 +17,7 @@ export function Blog() {
 
     return (
         <div>
-            <FullBlog blog={blog}></FullBlog>
+            {<FullBlog blog={blog}></FullBlog>}
         </div>
     )
 }

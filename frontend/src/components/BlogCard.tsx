@@ -24,8 +24,7 @@ export const BlogCard = ({ authorName, title, content, publishedDate,id }: BlogC
         <div className="mt-2 text-2xl font-semibold font-serif">
             {title}
         </div>
-        <div className="text-sm font-light text-slate-600 my-1 ">
-            {content.slice(0, 300) + "....."}
+        <div className="text-sm font-light text-slate-600 my-1 max-h-20 overflow-hidden" dangerouslySetInnerHTML={{__html:content.slice(0,300)+"..."}}>
         </div>
         <div className="flex justify-start gap-3">
             <div className="text-xs my-2 font-thin text-slate-600">

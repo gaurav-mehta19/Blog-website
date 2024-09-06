@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { verify } from 'hono/jwt';
 import { createBlogInput, updateBlogInput } from "@gaurav_mehta/medium-common";
+import sanitizeHtml from 'sanitize-html';
 
 export const blogRouter = new Hono<{
     Bindings: {
@@ -37,8 +38,10 @@ blogRouter.use('/*',async(c,next)=>{
 })
 
 blogRouter.post('/', async(c) => {
-    const body = await c.req.json()
-    const { success } = createBlogInput.safeParse(body)
+    const body = await c.req.text()
+    const parsedBody = JSON.parse(body);
+    const { success } = createBlogInput.safeParse(parsedBody);
+    const { title, content } = parsedBody;
     if(!success){
         c.status(411);
         return c.json({
@@ -50,10 +53,13 @@ blogRouter.post('/', async(c) => {
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
 
+    const blogContent = sanitizeHtml(content)
+    
     const blog = await prisma.blog.create({
         data: {
-            title:body.title,
-            content:body.content,
+            title:title,
+            content:blogContent,
+            published:true,
             authorId: userId
         }
     })
@@ -65,9 +71,6 @@ blogRouter.post('/', async(c) => {
 
 blogRouter.put('/', async(c) => {
     const body = await c.req.json()
-    const prisma = new PrismaClient({
-        datasourceUrl: c.env.DATABASE_URL,
-    }).$extends(withAccelerate())
 
     const { success } = updateBlogInput.safeParse(body)
     if(!success){
@@ -76,6 +79,10 @@ blogRouter.put('/', async(c) => {
             msg:"Inputs incorrect "
         })
     }
+
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate())
 
     const blog = await prisma.blog.update({
         where:{
