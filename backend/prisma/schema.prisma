@@ -30,5 +30,5 @@ model Blog {
   authorId String
   image String?
   author User @relation(fields: [authorId], references: [id])
-  createdAt DateTime @default(now())
+  publishDate DateTime @default(now())
 }

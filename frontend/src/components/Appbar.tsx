@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 
 export const Appbar = () => {
     const navigate = useNavigate()
@@ -9,10 +9,8 @@ export const Appbar = () => {
         </div>
         </Link>
         <div>
-            <div>
-                <Link to={'/publish'}>
-            <button type="button" className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-12 py-1.5 text-center me-6 mb-2">Create New Blog</button>
-            </Link>
+            <div className="flex">
+                <CreateBLogVisibility />
             <button onClick={()=>{
                 localStorage.removeItem('token')
                 navigate('/signin')
@@ -23,5 +21,19 @@ export const Appbar = () => {
                 
             </div>
         </div>
+    </div>
+}
+
+
+function CreateBLogVisibility(){
+    
+    const location = useLocation()
+    if(location.pathname === '/publish'){
+        return null
+    }
+    return <div>
+         <Link to={'/publish'}>
+            <button type="button" className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-12 py-1.5 text-center me-6 mb-2">Create New Blog</button>
+            </Link>
     </div>
 }

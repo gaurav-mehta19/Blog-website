@@ -15,7 +15,7 @@ export const FullBlog = ({blog}:{blog:Blog}) => {
                         {blog.title}
                     </div>
                     <div className="text-md font-light text-slate-500 mb-3">
-                        Posted on 24 August 2024
+                        {blog.publishedDate}
                     </div>
                     <div className="text-xl text-slate-600" dangerouslySetInnerHTML={{__html:blog.content}}>
                     </div>
