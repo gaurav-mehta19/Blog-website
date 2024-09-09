@@ -10,7 +10,7 @@ export interface Blog {
   title: string;
   content: string;
   id: string;
-  publishedDate: string;
+  publishDate: string;
 }
 
 export const useBlog = ({ id }: { id: string }) => {
@@ -25,11 +25,9 @@ export const useBlog = ({ id }: { id: string }) => {
         },
       })
       .then((response) => {
+        console.log(response.data.blog);
         const fetchedBlog = response.data.blog;
-        
-        // Parse and format the publishedDate using moment
-        fetchedBlog.publishedDate = moment(fetchedBlog.publishedDate).format('MMMM Do, YYYY'); 
-        
+        fetchedBlog.publishDate = fetchedBlog.publishDate ? moment(fetchedBlog.publishDate).format('dddd, MMMM Do, YYYY'): "Unknow publish date"; 
         setBlog(fetchedBlog);
         setLoading(false);
       });
@@ -55,8 +53,7 @@ export const useBlogs = () => {
       .then((response) => {
         const fetchedBlogs = response.data.blogs.map((blog: Blog) => ({
           ...blog,
-          // Parse and format the publishedDate using moment
-          publishedDate: moment(blog.publishedDate).format('MMMM Do, YYYY'),
+          publishDate: moment(blog.publishDate).format('dddd, MMMM Do, YYYY'),
         }));
 
         setBlogs(fetchedBlogs);

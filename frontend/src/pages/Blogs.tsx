@@ -29,7 +29,7 @@ export function Blogs() {
                         authorName={blog.author.name}
                         title={blog.title}
                         content={blog.content}
-                        publishedDate={blog.publishedDate}
+                        publishedDate={blog.publishDate}
                     />)}
                 </div>
             </div>

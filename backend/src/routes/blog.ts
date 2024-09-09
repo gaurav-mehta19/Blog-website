@@ -70,9 +70,10 @@ blogRouter.post('/', async(c) => {
 })
 
 blogRouter.put('/', async(c) => {
-    const body = await c.req.json()
-
-    const { success } = updateBlogInput.safeParse(body)
+    const body = await c.req.text()
+    const parsedBody = JSON.parse(body);
+    const { success } = updateBlogInput.safeParse(parsedBody)
+    const { id, title, content } = parsedBody;
     if(!success){
         c.status(411);
         return c.json({
@@ -86,11 +87,11 @@ blogRouter.put('/', async(c) => {
 
     const blog = await prisma.blog.update({
         where:{
-            id:body.id
+            id:id
         },
         data: {
-            title:body.title,
-            content:body.content,
+            title:title,
+            content:content,
         }
     })
 

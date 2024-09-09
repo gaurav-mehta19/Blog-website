@@ -61,10 +61,10 @@ export const Publish = () => {
 const modules = {
     toolbar: [
         [],
-        [{ list: 'ordered' }, { list: 'bullet' }],
+        [],
         ['bold', 'italic', 'underline'],
         [],
-        [{ align: [] }],
+        [{}],
         [],
     ],
 };

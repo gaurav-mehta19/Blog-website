@@ -10,7 +10,7 @@ interface BlogCardtypes {
 
 export const BlogCard = ({ authorName, title, content, publishedDate,id }: BlogCardtypes) => {
     return <Link to={`/blog/${id}`}>
-     <div className="border-b mt-4 pb-2 cursor-pointer">
+     <div className="border-b mt-4 pb-2 cursor-pointer max-h-48">
         <div className="flex">
             <div className="flex justify-center flex-col">
                 <Avatar name={authorName || "Anonymous"} />
@@ -24,7 +24,7 @@ export const BlogCard = ({ authorName, title, content, publishedDate,id }: BlogC
         <div className="mt-2 text-2xl font-semibold font-serif">
             {title}
         </div>
-        <div className="text-sm font-light text-slate-600 my-1 max-h-20 overflow-hidden" dangerouslySetInnerHTML={{__html:content.slice(0,300)+"..."}}>
+        <div className="text-sm font-light text-slate-600 my-1 line-clamp-4 overflow-hidden text-ellipsis" dangerouslySetInnerHTML={{__html:content.slice(0,130)+"..."}}>
         </div>
         <div className="flex justify-start gap-3">
             <div className="text-xs my-2 font-thin text-slate-600">
