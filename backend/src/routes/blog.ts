@@ -4,6 +4,7 @@ import { withAccelerate } from '@prisma/extension-accelerate'
 import { verify } from 'hono/jwt';
 import { createBlogInput, updateBlogInput } from "@gaurav_mehta/medium-common";
 import sanitizeHtml from 'sanitize-html';
+import { getCookie } from "hono/cookie";
 
 export const blogRouter = new Hono<{
     Bindings: {
@@ -15,27 +16,27 @@ export const blogRouter = new Hono<{
     }
 }>();
 
-blogRouter.use('/*',async(c,next)=>{
-    const authHeader = c.req.header('Authorization') || "";
-    try{
-        const user = await verify(authHeader,c.env.JWT_SECRET)
-        if(user){
-            if(typeof user.id == 'string'){
-                c.set('userId',user.id)
-                await next()
-            }
-        }else{
-            return c.json({
-                message:"you are not logged in"
-            })
+blogRouter.use('/*', async (c, next) => {
+    const token = await getCookie(c, "token");
+
+    if (!token) {
+        c.status(405);
+        return c.json({ error: 'Unauthorized' });
+    }
+    try {
+        const userData = await verify(token, c.env.JWT_SECRET);
+        if (userData && typeof userData.id === 'string') {
+            c.set('userId', userData.id);
+            await next();
+        } else {
+            return c.json({ message: "You are not logged in" });
         }
+    } catch (e) {
+        console.error(e);
+        c.status(500);
+        return c.json({ error: "You are not logged in" });
     }
-    catch(e){
-        c.status(411);
-        return c.json({error:"you are not logged in"})
-    }
-   
-})
+});
 
 blogRouter.post('/', async(c) => {
     const body = await c.req.text()
@@ -43,7 +44,7 @@ blogRouter.post('/', async(c) => {
     const { success } = createBlogInput.safeParse(parsedBody);
     const { title, content } = parsedBody;
     if(!success){
-        c.status(411);
+        c.status(400);
         return c.json({
             msg:"Inputs incorrect "
         })
@@ -75,7 +76,7 @@ blogRouter.put('/', async(c) => {
     const { success } = updateBlogInput.safeParse(parsedBody)
     const { id, title, content } = parsedBody;
     if(!success){
-        c.status(411);
+        c.status(400);
         return c.json({
             msg:"Inputs incorrect "
         })
@@ -113,7 +114,8 @@ blogRouter.get('/bulk', async(c) => {
             publishDate:true,
             author:{
                 select:{
-                    name:true
+                    name:true,
+                    description:true
                 }
             }
 
@@ -143,7 +145,8 @@ blogRouter.get('/:id', async(c) => {
                 publishDate:true,
                 author:{
                     select:{
-                        name:true
+                        name:true,
+                        description:true
                     }
                 }
             }
