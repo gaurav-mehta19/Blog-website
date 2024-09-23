@@ -29,6 +29,7 @@ model Blog {
   published Boolean @default(false)
   authorId String
   image String?
+  isHidden Boolean @default(false)
   author User @relation(fields: [authorId], references: [id])
   publishDate DateTime @default(now())
 }

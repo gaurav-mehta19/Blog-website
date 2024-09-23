@@ -1,7 +1,7 @@
 import { Appbar } from "../components/Appbar";
 import { BlogCard } from "../components/BlogCard";
 import { Skleton } from "../components/Skleton1";
-import { useBlogs } from "../hooks";
+import { useBlogs } from "../hooks/blog";
 
 export function Blogs() {
 

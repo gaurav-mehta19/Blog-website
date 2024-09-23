@@ -2,6 +2,8 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "CommonJS",
+
+    "esModuleInterop": true,
     // "bundler": true, // Removed unknown compiler option
     "strict": true,
     "skipLibCheck": true,

@@ -1,21 +1,23 @@
-import { SignupInput } from "@gaurav_mehta/medium-common"
+import { SigninInput } from "@gaurav_mehta/medium-common/dist/zod/zod"
 import axios from "axios"
 import { ChangeEvent, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { BACKEND_URL } from "../config"
 
-export const Auth = ({ type }: { type: "signup" | "signin" }) => {
+
+
+export const Signin = () => {
     const navigate = useNavigate()
-    const [postInputs,setPostInputs] = useState<SignupInput>({
-        name:"",
+    const [postInputs,setPostInputs] = useState<SigninInput>({
         email:"",
-        password:"",
-        description:""
+        password:"", 
     })
 
     async function sendRequest(){
         try{
-          const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,postInputs)
+          const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`,postInputs,{
+                withCredentials:true
+          })
           console.log(response);
           
             const jwt = response.data.jwt
@@ -33,22 +35,19 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
         <div className="flex justify-center">
             <div>
                 <div className="text-3xl text-center font-extrabold px-20 mb-3">
-                   {type === "signin" ? "Sign In" : "Create an account" } 
+                   Sign In 
                 </div>
                 <div className="text-slate-400 px-20 mb-8">
-                    {type==="signin" ? "Don't have an account? " : "Already have an account? "}
-                    <Link className="pl-1 underline" to={type ==="signin" ? "/signup" : "/signin"}>{type==="signin" ? "Sign up" : "Sign in"}</Link>
+                    Don't have an account?
+                    <Link className="pl-1 hover:underline" to={"/signup"}>Sign up</Link>
                 </div>
-                {type ==="signup" ?<LabelledInput label="Username" placeholder="Enter your username" onChange={(e)=>{
-                    setPostInputs(c=>({...c,name:e.target.value}))
-                }}></LabelledInput> :null}
                  <LabelledInput label="Email" placeholder="xyz@gmail.com" onChange={(e)=>{
                     setPostInputs(c=>({...c,email:e.target.value}))
                 }}></LabelledInput>
                  <LabelledInput type="password" label="Password" placeholder="Minimum 8 character" onChange={(e)=>{
                     setPostInputs(c=>({...c,password:e.target.value}))
                 }}></LabelledInput>
-                <button onClick={sendRequest} className="mt-4 w-full text-lg h-12 rounded-lg bg-black text-white">{type === "signup" ? "Sign Up" : "Sign In"}</button>
+                <button onClick={sendRequest} className="mt-4 w-full text-lg h-12 rounded-lg bg-black text-white">Sign In</button>
             </div>
         </div>
     </div>

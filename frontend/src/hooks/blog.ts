@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../config";
 import moment from 'moment';
 
+
 export interface Blog {
   author: {
     name: string;
@@ -18,11 +19,8 @@ export const useBlog = ({ id }: { id: string }) => {
   const [blog, setBlog] = useState<Blog | undefined>();
 
   useEffect(() => {
-    axios
-      .get(`${BACKEND_URL}/api/v1/blog/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem('token')!,
-        },
+    axios.get(`${BACKEND_URL}/api/v1/blog/${id}`, {
+      withCredentials: true,
       })
       .then((response) => {
         console.log(response.data.blog);
@@ -46,9 +44,7 @@ export const useBlogs = () => {
   useEffect(() => {
     axios
       .get(`${BACKEND_URL}/api/v1/blog/bulk`, {
-        headers: {
-          Authorization: localStorage.getItem('token')!,
-        },
+        withCredentials: true,
       })
       .then((response) => {
         const fetchedBlogs = response.data.blogs.map((blog: Blog) => ({

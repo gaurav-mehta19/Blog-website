@@ -1,5 +1,5 @@
 import { Appbar } from "./Appbar";
-import { Blog } from "../hooks"
+import { Blog } from "../hooks/blog"
 
 
 export const FullBlog = ({blog}:{blog:Blog}) => {

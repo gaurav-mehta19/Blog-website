@@ -1,13 +1,12 @@
-
-import { Auth } from "../components/Auth"
+import { Signup } from "../components/Signup"
 import { Quote } from "../components/Quote"
 
-export function Signup(){
+export function SignupPage(){
     return (
     <div>
         <div className="grid grid-cols-1 lg:grid-cols-2">
             <div>
-                <Auth type="signup"/>
+                <Signup/>
             </div>
             <div>
             <Quote/>
