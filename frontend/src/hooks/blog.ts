@@ -53,7 +53,10 @@ export const useBlogs = () => {
         }));
 
         setBlogs(fetchedBlogs);
-        setLoading(false);
+        //setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+      }, 2000);
       });
   }, []);
 

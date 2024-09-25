@@ -6,7 +6,8 @@ import { Blogs } from "./pages/Blogs"
 import { Publish } from "./pages/Publish"
 import { Toaster } from 'sonner'
 import { RecoilRoot } from "recoil"
-import { Profile  } from "../context/Profile"
+import { ProfilePage } from "./pages/ProfilePage"
+import { MyBlogs } from "./pages/MyBlogs"
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
     <>
     <RecoilRoot>
     <BrowserRouter>
-    <Profile>
+    
     <Toaster richColors />
     <Routes>
       <Route path="/signup" element={<SignupPage/>}/>
@@ -23,8 +24,10 @@ function App() {
       <Route path="/blogs" element={<Blogs/>}/>
       <Route path="/blog/:id" element={<Blog/>}/>
       <Route path="/publish" element={<Publish/>}/>
+      <Route path="/profilepage" element={<ProfilePage/>}/>
+      <Route path="/myBlogs" element={<MyBlogs/>}/>
     </Routes>
-    </Profile>
+  
     </BrowserRouter>
     </RecoilRoot>
     </>

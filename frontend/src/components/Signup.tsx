@@ -45,14 +45,19 @@ export const Signup = () => {
                  <LabelledInput type="password" label="Password" placeholder="Minimum 8 character" onChange={(e)=>{
                     setPostInputs(c=>({...c,password:e.target.value}))
                 }}></LabelledInput>
-                <button onClick={()=>{setShowPopupCard(true)}} className="mt-4 w-full text-lg h-12 rounded-lg bg-black text-white">Sign Up</button>
+                <button onClick={()=>{setShowPopupCard(prev=>!prev)}} className="mt-4 w-full text-lg h-12 rounded-lg bg-black text-white">Sign Up</button>
             </div>
         </div>
 
         {showPopupCard && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <div className="flex justify-between">
             <div className="text-xl font-bold mb-4">Complete Your Profile</div>
+            <svg onClick={()=>{setShowPopupCard(prev=>!prev)}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6 hover:rounded-full hover:bg-slate-100">
+             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+             </svg>
+            </div>
             <LabelledInput
               label="Name"
               placeholder="John Doe"

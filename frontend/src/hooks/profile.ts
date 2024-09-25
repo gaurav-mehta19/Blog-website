@@ -1,22 +1,29 @@
-// import axios from "axios";
-// import { BACKEND_URL } from "../config";
-// import { useEffect } from "react";
-// import { useSetRecoilState } from "recoil";
-// import { profileAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/profile"
+import { profileAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/profile";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import {useRecoilState} from "recoil";
+import { BACKEND_URL } from "../config";
 
+export const useProfile = () => {
+    const [loading, setLoading] = useState(true);
+    const [profile, setProfile] = useRecoilState(profileAtom);
 
-// export const useProfile = () =>{
-//     const setProfileState = useSetRecoilState(profileAtom);
+    useEffect(() => {
+        axios.get(`${BACKEND_URL}/api/v1/user/profile`, {
+            withCredentials: true,
+        })
+            .then((response) => {
+                console.log(response.data);
+                setProfile(response.data.profile);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 2000);
+                //setLoading(false);
+            });
+    }, []);
 
-//     useEffect(() => {
-//         axios.get(`${BACKEND_URL}/api/v1/user/profile`, {
-//             withCredentials: true,
-//         })
-//         .then((response) => {
-//             const fetchedProfile = response.data.profile;
-//             console.log(fetchedProfile);
-//             setProfileState(fetchedProfile);
-//         });
-
-//     }, [setProfileState]);
-// }
+    return {
+        loading,
+        profile,
+    };
+}   
