@@ -23,7 +23,6 @@ export const useBlog = ({ id }: { id: string }) => {
       withCredentials: true,
       })
       .then((response) => {
-        console.log(response.data.blog);
         const fetchedBlog = response.data.blog;
         fetchedBlog.publishDate = fetchedBlog.publishDate ? moment(fetchedBlog.publishDate).format('dddd, MMMM Do, YYYY'): "Unknow publish date"; 
         setBlog(fetchedBlog);
@@ -53,10 +52,7 @@ export const useBlogs = () => {
         }));
 
         setBlogs(fetchedBlogs);
-        //setLoading(false);
-        setTimeout(() => {
-          setLoading(false);
-      }, 2000);
+        setLoading(false);
       });
   }, []);
 

@@ -13,12 +13,8 @@ export const useProfile = () => {
             withCredentials: true,
         })
             .then((response) => {
-                console.log(response.data);
                 setProfile(response.data.profile);
-                setTimeout(() => {
-                    setLoading(false);
-                }, 2000);
-                //setLoading(false);
+                setLoading(false);
             });
     }, []);
 

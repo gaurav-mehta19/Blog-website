@@ -8,6 +8,8 @@ import { Toaster } from 'sonner'
 import { RecoilRoot } from "recoil"
 import { ProfilePage } from "./pages/ProfilePage"
 import { MyBlogs } from "./pages/MyBlogs"
+import { HomePage } from "./pages/HomePage"
+
 
 
 function App() {
@@ -19,13 +21,14 @@ function App() {
     
     <Toaster richColors />
     <Routes>
+     <Route path="/" element={<HomePage/>}/>
       <Route path="/signup" element={<SignupPage/>}/>
       <Route path="/signin" element={<SigninPage/>}/>
       <Route path="/blogs" element={<Blogs/>}/>
       <Route path="/blog/:id" element={<Blog/>}/>
       <Route path="/publish" element={<Publish/>}/>
       <Route path="/profilepage" element={<ProfilePage/>}/>
-      <Route path="/myBlogs" element={<MyBlogs/>}/>
+      <Route path="/myblogs/:userId" element={<MyBlogs/>}/>
     </Routes>
   
     </BrowserRouter>
