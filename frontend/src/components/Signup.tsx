@@ -1,10 +1,15 @@
 import { SignupInput } from "@gaurav_mehta/medium-common/dist/zod/zod";
 import axios from "axios";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../config";
 import { popupcardAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/popupCard";
 import { useRecoilState } from "recoil";
+import { LabelledInput, LabelledInputPassword } from "./Signin";
+import { showPasswordAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/showPassword";
+import { useRecoilValue } from "recoil";
+
+
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -16,6 +21,7 @@ export const Signup = () => {
   });
 
   const [showPopupCard, setShowPopupCard] = useRecoilState(popupcardAtom);
+  const showPassword = useRecoilValue(showPasswordAtom);
 
   async function handleSubmit() {
     try {
@@ -49,20 +55,21 @@ export const Signup = () => {
               setPostInputs((c) => ({ ...c, email: e.target.value }));
             }}
           ></LabelledInput>
-          <LabelledInput
+          <LabelledInputPassword
             id="signupPassword"
-            type="password"
+            type={showPassword ? "text" : "password"}
             label="Password"
             placeholder="Minimum 8 characters"
             onChange={(e) => {
               setPostInputs((c) => ({ ...c, password: e.target.value }));
             }}
-          ></LabelledInput>
+          ></LabelledInputPassword>
           <button
             onClick={() => {
               setShowPopupCard((prev) => !prev);
             }}
             className="mt-4 w-full text-lg h-12 rounded-lg bg-black text-white"
+            style={{ userSelect: 'none' }}
           >
             Sign Up
           </button>
@@ -107,6 +114,7 @@ export const Signup = () => {
             <button
               onClick={handleSubmit}
               className="mt-4 w-full text-lg h-12 rounded-lg bg-blue-500 text-white"
+              style={{ userSelect: 'none' }}
             >
               Submit
             </button>
@@ -117,28 +125,3 @@ export const Signup = () => {
   );
 };
 
-interface LabelledInputType {
-  label: string;
-  placeholder: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  type?: string;
-  id?: string;
-}
-
-function LabelledInput({ label, type, placeholder, id, onChange }: LabelledInputType) {
-  return (
-    <div>
-      <label htmlFor={id} className="block mb-2 text-md font-semibold text-gray-900">
-        {label}
-      </label>
-      <input
-        type={type || "text"}
-        id={id} // Corrected: uses the passed id prop
-        className="mb-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        placeholder={placeholder}
-        onChange={onChange}
-        required
-      />
-    </div>
-  );
-}

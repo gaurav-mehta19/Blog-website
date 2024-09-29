@@ -1,7 +1,7 @@
-export const Skleton = () => {
+export const Skleton1 = () => {
     return (
-        <div className="flex flex-col mt-3 justify-center max-w-5xl">
-            <div className="border-b mt-4 pb-2">
+        <div className="flex flex-col justify-center max-w-5xl mx-32 min-h-32">
+            <div className="border-b mt-4">
                 <div className="flex">
                     <div className="flex mr-3 bg-slate-100 w-5 h-5 rounded-full justify-center flex-col shimmer">
                     </div>

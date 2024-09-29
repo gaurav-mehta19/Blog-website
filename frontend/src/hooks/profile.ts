@@ -16,7 +16,7 @@ export const useProfile = () => {
                 setProfile(response.data.profile);
                 setLoading(false);
             });
-    }, []);
+    }, [setProfile]);
 
     return {
         loading,

@@ -12,8 +12,11 @@ export const ProfilePage = ()=> {
     return (
         <div>
             <Appbar />
+            <div className="mt-20 ml-32">
             <div>{profile.name}</div>
             <div>{profile.email}</div>
+            <div>{profile.description}</div>
+            </div>
             <div></div>
         </div>
 

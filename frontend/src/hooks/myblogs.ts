@@ -1,27 +1,35 @@
 import { useEffect, useState } from "react";
-import {Blog} from "./blog"
+import { Blog } from "./blog"; 
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import moment from "moment";
 
-
-
-export const useMyblogs = ({userId}:{userId:string}) => {
+export const useMyblogs = ({ userId }: { userId: string }) => {
     const [loading, setLoading] = useState(true);
-    const [blogs, setBlogs] = useState<Blog[]>([]);
-    useEffect(()=>{
+    const [myblogs, setMyblogs] = useState<Blog[]>([]);
+
+    useEffect(() => {
         axios.get(`${BACKEND_URL}/api/v1/blog/myblogs/${userId}`, {
-            withCredentials:true
+            withCredentials: true,
         }).then((response) => {
+            console.log(response.data)
             const fetchedBlogs = response.data.myblogs;
-            fetchedBlogs.publishDate = fetchedBlogs.publishDate ? moment(fetchedBlogs.publishDate).format('dddd, MMMM Do, YYYY'): "Unknow publish date"; 
-            setBlogs(fetchedBlogs);
+            console.log(fetchedBlogs);
+            
+            const formattedBlogs = fetchedBlogs.map((blog: Blog) => ({
+                ...blog,
+                publishDate: blog.publishDate ? moment(blog.publishDate).format('dddd, MMMM Do, YYYY') : "Unknown publish date",
+            }));
+            setMyblogs(formattedBlogs);
             setLoading(false);
-        })
-    },[userId])
+        }).catch((error) => {
+            console.error('Error fetching blogs:', error);
+            setLoading(false);
+        });
+    }, [userId]);
 
     return {
         loading,
-        blogs
-    }   
-}
+        myblogs,
+    };
+};

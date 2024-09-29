@@ -10,7 +10,7 @@ interface BlogCardtypes {
 
 export const BlogCard = ({ authorName, title, content, publishedDate,id }: BlogCardtypes) => {
     return <Link to={`/blog/${id}`}>
-     <div className="border-b mt-4 pb-2 cursor-pointer max-h-48">
+     <div className="border-b pb-1 mt-4 cursor-pointer max-h-48 mx-32">
         <div className="flex">
             <div className="flex justify-center flex-col">
                 <Avatar name={authorName || "Anonymous"} />
