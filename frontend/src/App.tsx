@@ -8,7 +8,7 @@ import { Toaster } from 'sonner'
 import { RecoilRoot } from "recoil"
 import { ProfilePage } from "./pages/ProfilePage"
 import { MyBlogs } from "./pages/MyBlogs"
-import { HomePage } from "./pages/HomePage"
+import { HomePage } from "./pages/LandingPage"
 
 
 

@@ -42,7 +42,10 @@ blogRouter.post('/', async (c) => {
     const body = await c.req.text()
     const parsedBody = JSON.parse(body);
     const { success } = createBlogInput.safeParse(parsedBody);
+    console.log(parsedBody, success);
     const { title, content } = parsedBody;
+    console.log(title,content);
+    
     if (!success) {
         c.status(400);
         return c.json({
