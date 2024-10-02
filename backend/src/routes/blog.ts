@@ -3,7 +3,6 @@ import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { verify } from 'hono/jwt';
 import { createBlogInput, updateBlogInput } from "@gaurav_mehta/medium-common/dist/zod/zod";
-import sanitizeHtml from 'sanitize-html';
 import { getCookie } from "hono/cookie";
 
 export const blogRouter = new Hono<{
@@ -42,9 +41,10 @@ blogRouter.post('/', async (c) => {
     const body = await c.req.text()
     const parsedBody = JSON.parse(body);
     const { success } = createBlogInput.safeParse(parsedBody);
-    console.log(parsedBody, success);
     const { title, content } = parsedBody;
-    console.log(title,content);
+
+    console.log(content)
+    
     
     if (!success) {
         c.status(400);
@@ -56,13 +56,11 @@ blogRouter.post('/', async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
-
-    const blogContent = sanitizeHtml(content)
-
+    
     const blog = await prisma.blog.create({
         data: {
             title: title,
-            content: blogContent,
+            content: content,
             published: true,
             authorId: userId
         }
@@ -73,36 +71,36 @@ blogRouter.post('/', async (c) => {
     })
 })
 
-blogRouter.put('/', async (c) => {
-    const body = await c.req.text()
-    const parsedBody = JSON.parse(body);
-    const { success } = updateBlogInput.safeParse(parsedBody)
-    const { id, title, content } = parsedBody;
-    if (!success) {
-        c.status(400);
-        return c.json({
-            msg: "Inputs incorrect "
-        })
-    }
+// blogRouter.put('/', async (c) => {
+//     const body = await c.req.text()
+//     const parsedBody = JSON.parse(body);
+//     const { success } = updateBlogInput.safeParse(parsedBody)
+//     const { id, title, content } = parsedBody;
+//     if (!success) {
+//         c.status(400);
+//         return c.json({
+//             msg: "Inputs incorrect "
+//         })
+//     }
 
-    const prisma = new PrismaClient({
-        datasourceUrl: c.env.DATABASE_URL,
-    }).$extends(withAccelerate())
+//     const prisma = new PrismaClient({
+//         datasourceUrl: c.env.DATABASE_URL,
+//     }).$extends(withAccelerate())
 
-    const blog = await prisma.blog.update({
-        where: {
-            id: id
-        },
-        data: {
-            title: title,
-            content: content,
-        }
-    })
+//     const blog = await prisma.blog.update({
+//         where: {
+//             id: id
+//         },
+//         data: {
+//             title: title,
+//             content: content,
+//         }
+//     })
 
-    return c.json({
-        id: blog.id
-    })
-})
+//     return c.json({
+//         id: blog.id
+//     })
+// })
 
 blogRouter.get('/bulk', async (c) => {
     const prisma = new PrismaClient({

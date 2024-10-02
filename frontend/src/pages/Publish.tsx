@@ -6,6 +6,9 @@ import 'react-quill/dist/quill.snow.css';
 import ReactQuill from "react-quill";
 import { Appbar } from "../components/Appbar";
 import { CreateBlogInput } from "@gaurav_mehta/medium-common/dist/zod/zod"
+import hljs from 'highlight.js'; 
+import 'highlight.js/styles/github.css';
+import 'highlight.js/lib/common'; 
 
 
 
@@ -22,7 +25,7 @@ export const Publish = () => {
             <div>
                 <Appbar />
             </div>
-            <div className="mx-5 my-5 h-screen w-screen">
+            <div className="mx-5 mt-20 my-5 h-screen w-screen">
                 <input
                     value={blog.title}
                     onChange={(e) => { setBlog(c => ({ ...c, title: e.target.value })) }}
@@ -36,6 +39,7 @@ export const Publish = () => {
                 <button
                     onClick={async () => {
                         try {
+                            console.log(blog.content);
                             const response = await axios.post(
                                 `${BACKEND_URL}/api/v1/blog`,blog,
                                 {
@@ -57,26 +61,17 @@ export const Publish = () => {
     );
 };
 
-const modules = {
-    toolbar: [
-        [],
-        [],
-        ['bold', 'italic', 'underline'],
-        [],
-        [{}],
-        [],
-    ],
-};
-
 
 function TextEditor({ value, onChange }: { value: string; onChange: (value: string) => void }) {
     return (
         <div>
             <ReactQuill
                 value={value}
+                theme="snow"
                 onChange={onChange}
-                modules={modules}
-                className="w-8/12 text-xl text-gray-800 bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 my-5"
+                modules={TextEditor.modules}
+                formats={TextEditor.formats}
+                className="w-8/12 text-xl text-gray-800 bg-white border border-gray-300 focus:ring-blue-500 focus:border-blue-500 my-5"
                 placeholder="Content"
                 style={{ height: '500px' }}
             />
@@ -84,3 +79,28 @@ function TextEditor({ value, onChange }: { value: string; onChange: (value: stri
     );
 }
 
+hljs.configure({
+    languages: undefined, // This will include all supported languages
+});
+
+TextEditor.modules = {
+    toolbar: [
+      [{ 'header': '1' }, { 'header': '2' }], 
+      [{ 'font': [] }], 
+      [{ 'size': ['small', false, 'large', 'huge'] }], 
+      [{ 'align': [] }],
+      ['bold', 'italic', 'underline', 'strike'], 
+      [{ 'color': [] }, { 'background': [] }], 
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }], 
+      ['blockquote', 'code-block'],
+      ['link', 'image']
+    ]
+  };
+  
+  TextEditor.formats = [
+    'header', 'font', 'size', 'align',
+    'bold', 'italic', 'underline', 'strike',
+    'color', 'background', 'list', 'bullet',
+    'link', 'image','code-block','blockquote'
+  ];
+    

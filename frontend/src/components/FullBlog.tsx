@@ -13,7 +13,7 @@ export const FullBlog = ({blog}:{blog:Blog}) => {
                     <div className="text-md font-light text-slate-500 mb-3">
                         {blog.publishDate}
                     </div>
-                    <div className="text-xl text-slate-600" dangerouslySetInnerHTML={{__html:blog.content}}>
+                    <div className="text-justify" dangerouslySetInnerHTML={{__html:blog.content}}>
                     </div>
                 </div>
                 <div className="col-span-1 w-full h-full p-5">

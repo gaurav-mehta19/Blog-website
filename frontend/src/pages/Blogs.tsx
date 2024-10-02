@@ -12,7 +12,7 @@ export function Blogs() {
     return (
         <div>
             <Appbar />
-            <div className="mt-20" onClick={()=>{
+            <div className="pt-20" onClick={()=>{
                         if(showPopDownCard){
                             setShowPopDownCard(false);
                         }
