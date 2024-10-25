@@ -11,6 +11,7 @@ export interface Blog {
   title: string;
   content: string;
   id: string;
+  image: string;
   publishDate: string;
 }
 
@@ -53,7 +54,7 @@ export const useBlogs = () => {
 
         setBlogs(fetchedBlogs);
         setLoading(false);
-      });
+      })
   }, []);
 
   return {

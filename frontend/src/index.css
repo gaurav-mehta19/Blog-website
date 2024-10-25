@@ -2,43 +2,130 @@
 @tailwind components;
 @tailwind utilities;
 
-/* .ql-editor {
-    font-size: 20px;
-} */
+/* Style the Quill toolbar */
+.ql-toolbar {
+    background-color: gray; /* Light background for toolbar */
+    border: 1px solid green; /* Gray border matching the title input */
+    border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; /* Rounded top corners only */
+    padding: 0rem;
+}
+
+/* Style the horizontal divider line between the toolbar and editor */
+.ql-container {
+    border: none; /* Gray border matching title input */
+    border-top: 0; /* Remove the top border so it doesn't double up ; /* Rounded bottom corners only */
+}
+
+/* Style the toolbar buttons */
+.ql-toolbar .ql-formats button {
+    background-color: transparent; /* Transparent background */
+    border: none; /* Remove default borders */
+    color: #1D4ED8; /* Blue icon color */
+    transition: color 0.2s, background-color 0.2s; /* Smooth transition */
+}
+
+/* Hover effect for toolbar buttons */
+.ql-toolbar .ql-formats button:hover {
+    background-color: #e5e7eb; /* Light gray background on hover */
+    border-radius: 0.25rem; /* Rounded button corners */
+    color: #1E40AF; /* Darker blue on hover */
+}
+
+/* Active state for toolbar buttons */
+.ql-toolbar .ql-formats button.ql-active {
+    color: white; /* White text for active button */
+    border-radius: 0.25rem;
+}
+
+.ql-editor {
+    min-height: 300px; 
+    max-height: none;
+    font-size: 14px; 
+    height: auto; 
+    padding: 1rem; 
+    overflow-y: visible;
+}
+
+.custom-quill .ql-editor h1 {
+    font-size: 1.35rem;  /* Set your desired font size for H1 */
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+.custom-quill .ql-editor h2 {
+    font-size: 1.15rem;  /* Set your desired font size for H2 */
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+.ql-editor p {
+    font-size: 1rem;
+    line-height: 1;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.flex-grow {
+    flex-grow: 1;        /* Allow the container to grow as needed */
+    display: flex;       /* Enable flexible growth of children */
+    flex-direction: column; /* Ensure children stack vertically */
+}
 
 .ql-editor pre {
-    background-color: #f4f4f4;
+    background-color: #e5e7eb; /* Light gray for preformatted text */
     padding: 10px;
-    border-radius: 4px;
-    overflow-x: auto;
+    border-radius: 0.5rem; /* Rounded border for code blocks */
 }
 
 .ql-editor pre code {
     font-family: 'Courier New', monospace;
-    color: #d63384;
+    color: #374151; /* Dark gray for code text */
+}
+.ql-editor a {
+    color: #1D4ED8; /* Blue links */
+    text-decoration: underline; /* Underline links */
 }
 
-blockquote {
-    border-left: 4px solid #ccc;
-    padding: 6px 15px;
-    margin: 5px 0;
+.ql-editor img {
+    width: 70%;
+    height: auto;
+    display: block;
+    margin: 10px auto; /* Center images with margin */
+}
+.ql-editor blockquote {
+    border-left: 4px solid #1D4ED8; /* Blue left border for blockquote */
+    padding: 0.5rem 1rem;
+    background-color: #f9fafb; /* Light background */
     font-style: italic;
     color: #555;
 }
 
-.ql-syntax {
-    background-color: #f4f4f4;
-
-    padding: 10px;
-
-    border-radius: 5px;
-
-    overflow-x: auto;
-
-    font-family: monospace;
-
+img{
+    margin: auto;
+    width: 70%;
+    height: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 0.25rem;
 }
 
+blockquote {
+    border-left: 4px solid #ccc;
+    padding: 4px 10px;
+    margin: 5px 0;
+    font-style: monospace;
+    color: #555;
+}
+
+.ql-syntax {
+    background-color: #f4f4f4 !important;
+    color: black !important;
+    padding: 10px;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-family: monospace;
+    border: 1px solid #ddd;
+}
 .ql-font-monospace {
     font-family: monospace;
 }
@@ -60,33 +147,19 @@ blockquote {
     text-align: justify;
 }
 
+
 h1 {
-    font-size: 2.5rem;
+    font-size: 1.3rem;
 }
 
 h2 {
-    font-size: 2rem;
-}
-
-h3 {
-    font-size: 1.75rem;
-}
-
-h4 {
-    font-size: 1.5rem;
-}
-
-h5 {
-    font-size: 1.25rem;
-}
-
-h6 {
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 p {
     font-size: 1rem;
-    line-height: 1.5;
+    font-weight: 300;
+    line-height: 1.25;
 }
 
 ul {
@@ -97,4 +170,22 @@ ul {
 ol {
     list-style-type: decimal;
     padding-left: 20px;
+}
+li {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.full-blog a {
+    color: #4A90E2;
+    text-decoration: underline;
+}
+
+/* Add this in your global CSS or a relevant CSS file */
+.custom-quill .ql-editor::before {
+    color: #a0aec0;   /* Change placeholder color */
+    font-style: normal; /* Apply italic font style */
+    font-size: 20px;  /* Change font size */
+    font-family: sans-serif; /* Change font family */
+    font-weight: 400; /* Change font weight */
 }

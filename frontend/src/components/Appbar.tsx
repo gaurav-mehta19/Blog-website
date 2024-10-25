@@ -12,13 +12,14 @@ import { Skleton3 } from "./Skleton3";
 export const Appbar = () => {
     const [showPopDownCard, setShowPopDownCard] = useRecoilState(popdowncardAtom);
     const { loading } = useProfile();
+    const location = useLocation();
 
-
-
+    if(location.pathname !== '/'){
     if (loading) {
         return <div><Skleton3 /></div>
 
     }
+}
 
     return (
         <div className="relative">
@@ -87,8 +88,8 @@ function AppbarContent() {
     if (location.pathname === '/') {
         return (
             <div className="flex gap-4 justify-center items-center mt-2">
-                <button>signup</button>
-                <button>signin</button>
+                <button onClick={() => navigate('/signup')}>signup</button>
+                <button onClick={()=> navigate('signin')}>signin</button>
             </div>
         )
     } else {

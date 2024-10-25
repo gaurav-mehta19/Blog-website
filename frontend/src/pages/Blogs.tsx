@@ -8,7 +8,6 @@ import { useRecoilState } from "recoil";
 export function Blogs() {
     const { loading, blogs } = useBlogs();
     const [showPopDownCard, setShowPopDownCard] = useRecoilState(popdowncardAtom);
-
     return (
         <div>
             <Appbar />
@@ -34,6 +33,8 @@ export function Blogs() {
                                 title={blog.title}
                                 content={blog.content}
                                 publishedDate={blog.publishDate}
+                                firstImgUrl={blog.image}
+                                
                             />
                         ))}
                     </div>

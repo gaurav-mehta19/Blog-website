@@ -9,8 +9,6 @@ export const MyBlogs = ()=> {
         userId:userId || ""
     });
     
-    console.log(userId);
-    
     if(loading){
         return <div>loading...</div>
     }
@@ -28,6 +26,7 @@ export const MyBlogs = ()=> {
                         title={blog.title}
                         content={blog.content}
                         publishedDate={blog.publishDate}
+                        firstImgUrl={blog.image}
                     />)}
                 </div>
             </div>

@@ -12,6 +12,7 @@ import { HomePage } from "./pages/LandingPage"
 
 
 
+
 function App() {
 
   return (
@@ -29,6 +30,7 @@ function App() {
       <Route path="/publish" element={<Publish/>}/>
       <Route path="/profilepage" element={<ProfilePage/>}/>
       <Route path="/myblogs/:userId" element={<MyBlogs/>}/>
+      <Route path="/myblog/:userId/:id" element={<Blog/>}/>
     </Routes>
   
     </BrowserRouter>

@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { verify } from 'hono/jwt';
-import { createBlogInput, updateBlogInput } from "@gaurav_mehta/medium-common/dist/zod/zod";
+import { createBlogInput } from '@gaurav_mehta/medium-common/dist/zod/zod';
 import { getCookie } from "hono/cookie";
 
 export const blogRouter = new Hono<{
@@ -41,7 +41,7 @@ blogRouter.post('/', async (c) => {
     const body = await c.req.text()
     const parsedBody = JSON.parse(body);
     const { success } = createBlogInput.safeParse(parsedBody);
-    const { title, content } = parsedBody;
+    const { title, content , firstImgUrl } = parsedBody;
 
     console.log(content)
     
@@ -61,8 +61,8 @@ blogRouter.post('/', async (c) => {
         data: {
             title: title,
             content: content,
-            published: true,
-            authorId: userId
+            authorId: userId,
+            image:firstImgUrl,
         }
     })
 
@@ -104,29 +104,34 @@ blogRouter.post('/', async (c) => {
 
 blogRouter.get('/bulk', async (c) => {
     const prisma = new PrismaClient({
-        datasourceUrl: c.env.DATABASE_URL,
-    }).$extends(withAccelerate())
-
-    const blogs = await prisma.blog.findMany({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+  
+    try {
+      const blogs = await prisma.blog.findMany({
+        take: 20,
         select: {
-            content: true,
-            title: true,
-            id: true,
-            publishDate: true,
-            author: {
-                select: {
-                    name: true,
-                    description: true
-                }
-            }
-
-        }
-    })
-
-    return c.json({
-        blogs
-    })
-})
+         content: true,
+          title: true,
+          id: true,
+          publishDate: true,
+         image: true,
+          author: {
+            select: {
+              name: true,
+              description: true,
+            },
+          },
+        },
+      });
+      
+      return c.json({ blogs });
+    } catch (e) {
+      console.error(e);
+      return c.status(500)
+    }
+  });
+  
 
 blogRouter.get('/myblogs/:userId', async (c) => {
     const userId = await c.req.param('userId')
@@ -144,6 +149,7 @@ blogRouter.get('/myblogs/:userId', async (c) => {
                 title: true,
                 id: true,
                 publishDate: true,
+                image: true,
                 author: {
                     select: {
                         name: true,
@@ -181,6 +187,7 @@ blogRouter.get('/:id', async (c) => {
                 title: true,
                 content: true,
                 publishDate: true,
+                image: true,
                 author: {
                     select: {
                         name: true,
