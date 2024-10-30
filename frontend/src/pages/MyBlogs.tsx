@@ -4,38 +4,48 @@ import { Appbar } from "../components/Appbar";
 import { BlogCard } from "../components/BlogCard";
 import { popdowncardAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/popdownCard";
 import { useRecoilState } from "recoil";
+import { Skleton1 } from "../components/Skleton1";
 
-export const MyBlogs = ()=> {
+export const MyBlogs = () => {
     const { userId } = useParams();
     const [showPopDownCard, setShowPopDownCard] = useRecoilState(popdowncardAtom);
-    const {loading, myblogs} = useMyblogs({
-        userId:userId || ""
+    const { loading, myblogs } = useMyblogs({
+        userId: userId || ""
     });
-    
-    if(loading){
-        return <div>loading...</div>
-    }
-    
 
-     return (
+
+
+    return (
         <div>
             <Appbar />
-            <div className="mt-20" onClick={()=>{
-                        if(showPopDownCard){
-                            setShowPopDownCard(false);
-                        }
-                    }} >
-                <div className="flex flex-col mt-3 justify-center max-w-5xl">
-                    {myblogs.map(blog => <BlogCard
-                        key={blog.id}
-                        id={blog.id}
-                        authorName={blog.author.name}
-                        title={blog.title}
-                        content={blog.content}
-                        publishedDate={blog.publishDate}
-                        firstImgUrl={blog.image}
-                    />)}
-                </div>
+            <div className="mt-20" onClick={() => {
+                if (showPopDownCard) {
+                    setShowPopDownCard(false);
+                }
+            }} >
+                {loading ? (
+                    <div>
+                        <Skleton1 />
+                        <Skleton1 />
+                        <Skleton1 />
+                        <Skleton1 />
+                    </div>
+                ) : (
+                    <div className="flex flex-col justify-center max-w-5xl" >
+                        {myblogs.map((blog) => (
+                            <BlogCard
+                                key={blog.id}
+                                id={blog.id}
+                                authorName={blog.author.name}
+                                title={blog.title}
+                                content={blog.content}
+                                publishedDate={blog.publishDate}
+                                firstImgUrl={blog.image}
+
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     )

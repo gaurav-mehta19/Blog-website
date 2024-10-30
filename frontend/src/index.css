@@ -98,6 +98,18 @@
     color: #555;
 }
 
+pre {
+    background-color: #f9fafb; /* Light background for code blocks */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #333; /* Dark text color */
+    padding: 10px; /* Padding around code blocks */
+    border-radius: 0.5rem; /* Rounded border */
+    overflow-x: auto; /* Allow horizontal scrolling */
+    font-family: 'Courier New', monospace; /* Monospace font */
+    border: 1px solid #d2d6dc; /* Light border */
+}
+
 img{
     margin: auto;
     width: 70%;
@@ -148,10 +160,12 @@ blockquote {
 
 h1 {
     font-size: 1.3rem;
+    font-weight: bold;
 }
 
 h2 {
     font-size: 1.1rem;
+    font-weight: bold;
 }
 
 p {

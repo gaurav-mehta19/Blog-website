@@ -21,7 +21,7 @@ blogRouter.use('/*', async (c, next) => {
 
     if (!token) {
         c.status(405);
-        return c.json({ msg : 'Unauthorized' });
+        return c.json({ error : 'Unauthorized' });
     }
     try {
         const userData = await verify(token, c.env.JWT_SECRET);
@@ -29,12 +29,13 @@ blogRouter.use('/*', async (c, next) => {
             c.set('userId', userData.id);
             await next();
         } else {
-            return c.json({ msg : "You are not logged in" });
+            c.status(500);
+            return c.json({ error : "You are not logged in" });
         }
     } catch (e) {
         console.error(e);
         c.status(500);
-        return c.json({ msg : "You are not logged in" });
+        return c.json({ error : "You are not logged in" });
     }
 });
 
@@ -43,9 +44,6 @@ blogRouter.post('/', async (c) => {
     const parsedBody = JSON.parse(body);
     const { success } = createBlogInput.safeParse(parsedBody);
     const { title, content , firstImgUrl } = parsedBody;
-
-    console.log(content)
-    
     
     if (!success) {
         c.status(400);
@@ -73,7 +71,7 @@ blogRouter.post('/', async (c) => {
         })
     }catch(e){
         c.status(500);
-        return c.json({ msg : "Internal Server Error" });
+        return c.json({ error : "Internal Server Error" });
     
 }
 })
@@ -86,7 +84,7 @@ blogRouter.post('/', async (c) => {
 //     if (!success) {
 //         c.status(400);
 //         return c.json({
-//             msg: "Inputs incorrect "
+//             error: "Inputs incorrect "
 //         })
 //     }
 
@@ -123,11 +121,11 @@ blogRouter.delete('/:id', async (c) => {
         })
 
         return c.json({
-            msg : "Blog Deleted"
+            msg: "Blog Deleted"
         })
     }catch(e){
         c.status(500);
-        return c.json({ msg : "Internal Server Error" });
+        return c.json({ error : "Internal Server Error" });
     }
 })
 
@@ -158,7 +156,7 @@ blogRouter.get('/bulk', async (c) => {
       return c.json({ blogs });
     } catch (e) {
       c.status(500)
-      return c.json({ msg: "Internal Server Error" });
+      return c.json({ error: "Internal Server Error" });
     }
   });
   
@@ -196,7 +194,7 @@ blogRouter.get('/myblogs/:userId', async (c) => {
     }
     catch (e) {
         c.status(500);
-        return c.json({ msg: "Internal Server error" })
+        return c.json({ error: "Internal Server error" })
     }
 
 })
@@ -233,7 +231,7 @@ blogRouter.get('/:id', async (c) => {
     }
     catch (e) {
         c.status(500);
-        return c.json({ msg: "Internal Server error" })
+        return c.json({ error: "Internal Server error" })
     }
 
 })

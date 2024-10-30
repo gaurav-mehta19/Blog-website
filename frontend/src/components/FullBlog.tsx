@@ -5,7 +5,7 @@ import { deletepopAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/dele
 import { useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
-
+import { toast } from "sonner";
 
 
 export const FullBlog = ({ blog } : {blog : Blog}) => {
@@ -16,13 +16,18 @@ export const FullBlog = ({ blog } : {blog : Blog}) => {
     
     const location = useLocation();
 
-    function handleDeleteConfirm() {
+    async function handleDeleteConfirm() {
+        const loadingToastId = toast.loading("Deleting blog...");
         try{
-            axios.delete(`${BACKEND_URL}/api/v1/blog/${id}`, {
+          await axios.delete(`${BACKEND_URL}/api/v1/blog/${id}`, {
                 withCredentials: true,
             });
+            toast.dismiss(loadingToastId);
+            toast.success("Blog deleted successfully");
             navigate(`/myblogs/${userId}`);
         } catch (e) {
+            toast.dismiss(loadingToastId);
+            toast.error("An error occurred. Please try again later");
             console.log(e);
         }
     }

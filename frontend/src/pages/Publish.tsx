@@ -24,7 +24,7 @@ export const Publish = () => {
     };
 
     return (
-        <div onClick={()=>{
+        <div  style={{ userSelect: 'none' }} onClick={()=>{
             if(showPopDownCard){
                 setShowPopDownCard(false);
             }
@@ -42,7 +42,7 @@ export const Publish = () => {
                 <TextEditor value={blog.content} onChange={handleContentChange} />
             </div>
             <div className='bg-[#fafafa] w-full h-64 flex flex-col justify-center items-center gap-2'>
-                <div className='mt-4 text-3xl text-gray-500'>Select text to change formatting, add headers, or create links.</div>
+                <div className='mt-4 text-2xl text-gray-500'>Select text to change formatting, add headers, or create links.</div>
                 <div className='h-40'><img src={bottomImg} alt="" /></div>
                 </div>
         </div>

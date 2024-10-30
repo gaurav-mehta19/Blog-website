@@ -17,24 +17,24 @@ function App() {
 
   return (
     <>
-    <RecoilRoot>
-    <BrowserRouter>
-    
-    <Toaster richColors />
-    <Routes>
-     <Route path="/" element={<HomePage/>}/>
-      <Route path="/signup" element={<SignupPage/>}/>
-      <Route path="/signin" element={<SigninPage/>}/>
-      <Route path="/blogs" element={<Blogs/>}/>
-      <Route path="/blog/:id" element={<Blog/>}/>
-      <Route path="/publish" element={<Publish/>}/>
-      <Route path="/profilepage" element={<ProfilePage/>}/>
-      <Route path="/myblogs/:userId" element={<MyBlogs/>}/>
-      <Route path="/myblog/:userId/:id" element={<Blog/>}/>
-    </Routes>
-  
-    </BrowserRouter>
-    </RecoilRoot>
+      <RecoilRoot>
+        <BrowserRouter>
+
+          <Toaster richColors />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/signin" element={<SigninPage />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blog/:id" element={<Blog />} />
+            <Route path="/publish" element={<Publish />} />
+            <Route path="/profilepage" element={<ProfilePage />} />
+            <Route path="/myblogs/:userId" element={<MyBlogs />} />
+            <Route path="/myblog/:userId/:id" element={<Blog />} />
+          </Routes>
+
+        </BrowserRouter>
+      </RecoilRoot>
     </>
   )
 }

@@ -5,7 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../config";
 import { showPasswordAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/showPassword";
 import { useRecoilState } from "recoil";
-import {useRecoilValue} from "recoil";
+import { useRecoilValue } from "recoil";
+import { toast } from "sonner";
 
 
 
@@ -19,34 +20,45 @@ export const Signin = () => {
   });
 
   async function sendRequest() {
+    if (postInputs.email.trim().length < 1 || postInputs.password.trim().length < 1) {
+      toast.warning("Please fill all fields");
+      return;
+    }
+
+    const loadingToastId = toast.loading("Signing in...");
+
     try {
-      const response = await axios.post(
+      await axios.post(
         `${BACKEND_URL}/api/v1/user/signin`,
         postInputs,
         {
           withCredentials: true,
         }
       );
-      console.log(response);
-
-      const jwt = response.data.jwt;
-      console.log(jwt);
-
-      localStorage.setItem("token", jwt);
+      toast.dismiss(loadingToastId);
+      toast.success("Signed in successfully");
       navigate("/blogs");
-    } catch (e) {
-      console.log(e);
+    }
+    catch (e: any) {
+      toast.dismiss(loadingToastId);
+      if (e.response.data.error) {
+        toast.warning(e.response.data.error);
+      } else {
+        console.error("An error occurred:", e);
+        toast.error("An error occurred. Please try again later");
+      }
     }
   }
 
+
   return (
-    <div className="h-screen flex justify-center flex-col">
+    <div  style={{ userSelect: 'none' }} className="h-screen flex justify-center flex-col">
       <div className="flex justify-center">
         <div>
-          <div className="text-3xl text-center font-extrabold px-20 mb-3">
+          <div className="text-4xl text-center font-semibold px-20 mb-2">
             Sign In
           </div>
-          <div className="text-slate-400 px-20 mb-8">
+          <div className="text-gray-400 text-lg px-20 mb-8">
             Don't have an account?
             <Link className="pl-1 hover:underline" to={"/signup"}>
               Sign up
@@ -71,7 +83,7 @@ export const Signin = () => {
           ></LabelledInputPassword>
           <button
             onClick={sendRequest}
-            className="mt-4 w-full text-lg h-12 rounded-lg bg-black text-white"
+            className="mt-4 w-full text-lg h-12 rounded-md bg-black text-white hover:bg-gray-900"
             style={{ userSelect: 'none' }}
           >
             Sign In
@@ -105,7 +117,7 @@ export function LabelledInput({
         <input
           type="text"
           id={id}
-          className="mb-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-none"
+          className="mb-6 border border-gray-300 text-gray-900 text-md rounded-md focus:border-gray-500 block w-full p-2.5 outline-none"
           placeholder={placeholder}
           onChange={onChange}
           required
@@ -133,14 +145,14 @@ export function LabelledInputPassword({
         <input
           type={inputType}
           id={id}
-          className="mb-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-none"
+          className="mb-6 border border-gray-300 text-gray-900 text-md rounded-md focus:border-gray-500 block w-full p-2.5 outline-none"
           placeholder={placeholder}
           onChange={onChange}
           required
         />
-          <div className="absolute inset-y-2 flex items-center right-0 mr-2" onClick={()=>setShowPassword(prev=>!prev)}>
-            <Eyecomponent />
-          </div>
+        <div className="absolute inset-y-2 flex items-center right-0 mr-2" onClick={() => setShowPassword(prev => !prev)}>
+          <Eyecomponent />
+        </div>
       </div>
     </div>
   );

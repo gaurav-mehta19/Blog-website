@@ -7,7 +7,7 @@ import { popdowncardAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/po
 import { useProfile } from "../hooks/profile";
 import { Skleton3 } from "./Skleton3";
 import { blogAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/blog";
-
+import { toast } from "sonner";
 
 
 export const Appbar = () => {
@@ -15,43 +15,45 @@ export const Appbar = () => {
     const { loading } = useProfile();
     const location = useLocation();
 
-    if(location.pathname !== '/'){
-    if (loading) {
-        return <div><Skleton3 /></div>
+    if (location.pathname !== '/') {
+        if (loading) {
+            return <div><Skleton3 /></div>
 
+        }
     }
-}
 
     return (
         <div className="relative">
-                <div className="fixed top-0 left-0 right-0 z-50 border-b border-slate-200 shadow-sm  p-1.5 flex justify-between px-32 h-16 bg-white" onClick={() => {
-                    if (showPopDownCard) {
-                        setShowPopDownCard(false);
-                    }
-                }}>
-                    <Link to={'/blogs'}>
-                        <div className="flex justify-center items-center gap-1 mt-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-7 mt-0.5">
-                                <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
-                            </svg>
-                            <div className="tracking-wide mt-1 font-extrabold text-2xl font-mono">
-                                MEDIUM
-                            </div>
+            <div className="fixed top-0 left-0 right-0 z-50 border-b border-slate-200 shadow-sm  p-1.5 flex justify-between px-32 h-16 bg-white" onClick={() => {
+                if (showPopDownCard) {
+                    setShowPopDownCard(false);
+                }
+            }}>
+                <Link to={'/blogs'}>
+                    <div className="flex justify-center items-center gap-1 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-7 mt-0.5">
+                            <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+                        </svg>
+                        <div className="tracking-wide mt-1 font-extrabold text-2xl font-mono">
+                            MEDIUM
                         </div>
-                    </Link>
-                    <div className="relative">
-                        <AppbarContent />
                     </div>
+                </Link>
+                <div className="relative">
+                    <AppbarContent />
                 </div>
             </div>
+        </div>
     );
 };
 
 function CreateBLogVisibility() {
     const location = useLocation();
     const navigate = useNavigate();
-    const [blog , setBlog ] = useRecoilState(blogAtom);
+    const [blog, setBlog] = useRecoilState(blogAtom);
     const handlePublish = async () => {
+        const loadingToastId = toast.loading("Publishing blog...");
+
         try {
             const response = await axios.post(
                 `${BACKEND_URL}/api/v1/blog`,
@@ -60,24 +62,32 @@ function CreateBLogVisibility() {
                     withCredentials: true,
                 }
             );
-            
+
+            toast.dismiss(loadingToastId);
+            toast.success("Blog published successfully");
             navigate(`/myblog/${response.data.userId}/${response.data.id}`);
             setBlog({
                 title: "",
                 content: "",
                 firstImgUrl: "",
             })
-        } catch (e) {
-            console.error('Error publishing blog', e);
+        } catch (e: any) {
+            toast.dismiss(loadingToastId);
+            if (e.response.data.error) {
+                toast.warning(e.response.data.error);
+            } else {
+                console.error('Error publishing blog', e);
+                toast.error("An error occurred. Please try again later");
+            }
         }
     };
 
 
     if (location.pathname === '/publish') {
         return <div>
-             <button onClick={handlePublish} type="button" className="text-white bg-green-700 border font-light hover:bg-green-800 rounded-full text-sm px-6 py-1.5 text-center me-6 mb-2 mt-1.5">
-                    Publish Blog
-                </button>
+            <button onClick={handlePublish} type="button" className="text-white bg-green-700 border font-light hover:bg-green-800 rounded-full text-sm px-6 py-1.5 text-center me-6 mb-2 mt-1.5">
+                Publish Blog
+            </button>
         </div>
     }
     return (
@@ -99,7 +109,10 @@ function AppbarContent() {
 
     async function handleLogout() {
         try {
+            const loadingToastId = toast.loading("Signing out...");
             await axios.post(`${BACKEND_URL}/api/v1/user/signout`, {}, { withCredentials: true });
+            toast.dismiss(loadingToastId);
+            toast.success("Logout successfully");
             setProfile({
                 email: "",
                 name: "",
@@ -117,12 +130,16 @@ function AppbarContent() {
     if (location.pathname === '/') {
         return (
             <div className="flex gap-4 justify-center items-center mt-2">
-                <button onClick={() => navigate('/signup')}>signup</button>
-                <button onClick={()=> navigate('signin')}>signin</button>
+                <button onClick={() => navigate('signup')} type="button" className="text-gray-900 hover:text-black border hover:bg-gray-100  focus:outline-none  font-medium rounded-lg text-md px-6 py-1.5 text-center mb-2">
+                    Sign Up
+                </button>
+                <button onClick={() => navigate('signin')} type="button" className="text-white bg-black border-slate-600 hover:bg-gray-900 focus:outline-none font-medium rounded-lg text-md px-6 py-1.5 text-center  mb-2">
+                    Sign In
+                </button>
             </div>
         )
     }
-     else {
+    else {
         return (
             <div className="flex gap-1">
                 <CreateBLogVisibility />
