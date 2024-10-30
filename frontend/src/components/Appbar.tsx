@@ -6,6 +6,7 @@ import { profileAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/profil
 import { popdowncardAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/popdownCard";
 import { useProfile } from "../hooks/profile";
 import { Skleton3 } from "./Skleton3";
+import { blogAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/blog";
 
 
 
@@ -48,8 +49,36 @@ export const Appbar = () => {
 
 function CreateBLogVisibility() {
     const location = useLocation();
+    const navigate = useNavigate();
+    const [blog , setBlog ] = useRecoilState(blogAtom);
+    const handlePublish = async () => {
+        try {
+            const response = await axios.post(
+                `${BACKEND_URL}/api/v1/blog`,
+                blog,
+                {
+                    withCredentials: true,
+                }
+            );
+            
+            navigate(`/myblog/${response.data.userId}/${response.data.id}`);
+            setBlog({
+                title: "",
+                content: "",
+                firstImgUrl: "",
+            })
+        } catch (e) {
+            console.error('Error publishing blog', e);
+        }
+    };
+
+
     if (location.pathname === '/publish') {
-        return null;
+        return <div>
+             <button onClick={handlePublish} type="button" className="text-white bg-green-700 border font-light hover:bg-green-800 rounded-full text-sm px-6 py-1.5 text-center me-6 mb-2 mt-1.5">
+                    Publish Blog
+                </button>
+        </div>
     }
     return (
         <div>
@@ -77,7 +106,7 @@ function AppbarContent() {
                 description: "",
                 id: ""
             });
-            setShowPopDownCard(prev => !prev);
+            setShowPopDownCard(false);
             navigate('/signin');
         } catch (e) {
             console.log(e);
@@ -92,7 +121,8 @@ function AppbarContent() {
                 <button onClick={()=> navigate('signin')}>signin</button>
             </div>
         )
-    } else {
+    }
+     else {
         return (
             <div className="flex gap-1">
                 <CreateBLogVisibility />

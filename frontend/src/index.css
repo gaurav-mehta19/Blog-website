@@ -4,8 +4,8 @@
 
 /* Style the Quill toolbar */
 .ql-toolbar {
-    background-color: gray; /* Light background for toolbar */
-    border: 1px solid green; /* Gray border matching the title input */
+    background-color: #212529 ;/* Light background for toolbar */
+    border: 1px solid black; /* Gray border matching the title input */
     border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; /* Rounded top corners only */
     padding: 0rem;
 }
@@ -20,21 +20,19 @@
 .ql-toolbar .ql-formats button {
     background-color: transparent; /* Transparent background */
     border: none; /* Remove default borders */
-    color: #1D4ED8; /* Blue icon color */
     transition: color 0.2s, background-color 0.2s; /* Smooth transition */
 }
 
 /* Hover effect for toolbar buttons */
 .ql-toolbar .ql-formats button:hover {
-    background-color: #e5e7eb; /* Light gray background on hover */
-    border-radius: 0.25rem; /* Rounded button corners */
-    color: #1E40AF; /* Darker blue on hover */
+    background-color: #495057; /* Light gray background on hover */
+    border-radius: 0.5rem; /* Rounded button corners */
 }
 
 /* Active state for toolbar buttons */
 .ql-toolbar .ql-formats button.ql-active {
     color: white; /* White text for active button */
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
 }
 
 .ql-editor {
@@ -188,4 +186,5 @@ li {
     font-size: 20px;  /* Change font size */
     font-family: sans-serif; /* Change font family */
     font-weight: 400; /* Change font weight */
+    border: none; /* Remove border */
 }

@@ -1,41 +1,16 @@
-import axios from "axios";
-import { BACKEND_URL } from "../config";
-// import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import 'react-quill/dist/quill.bubble.css';
-// import ReactQuill from "react-quill";
 import { Appbar } from "../components/Appbar";
-import { CreateBlogInput } from "@gaurav_mehta/medium-common/dist/zod/zod";
 import 'highlight.js/styles/github.css';
-// import hljs from 'highlight.js/lib/common';
 import { TextEditor } from "../components/TextEditor";
-import { useState } from "react";
-
+import { useRecoilState } from "recoil";
+import { blogAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/blog";
+import { popdowncardAtom } from '@gaurav_mehta/medium-common/dist/store/atoms/popdownCard';
+import bottomImg from '../assets/Screenshot 2024-10-29 at 1.17.10 PM (1).png';
 
 
 export const Publish = () => {
-    const navigate = useNavigate();
-    const [blog, setBlog] = useState<CreateBlogInput>({
-        title: "",
-        content: "",
-        firstImgUrl: ""
-    });
-
-    const handlePublish = async () => {
-        try {
-            const response = await axios.post(
-                `${BACKEND_URL}/api/v1/blog`,
-                blog,
-                {
-                    withCredentials: true,
-                }
-            );
-            navigate(`/blog/${response.data.id}`);
-        } catch (e) {
-            console.error('Error publishing blog', e);
-        }
-    };
-
+    const [blog, setBlog] = useRecoilState(blogAtom);
+    const [showPopDownCard, setShowPopDownCard] = useRecoilState(popdowncardAtom);
 
     const handleContentChange = (content: string) => {
         setBlog(prev => ({ ...prev, content }));
@@ -49,9 +24,13 @@ export const Publish = () => {
     };
 
     return (
-        <div>
+        <div onClick={()=>{
+            if(showPopDownCard){
+                setShowPopDownCard(false);
+            }
+        }}>
             <Appbar />
-            <div className="mx-5 mt-20 my-5 h-full flex flex-col items-center">
+            <div className="mx-5 mt-20 my-5 h-full flex flex-col items-center" >
                 <input
                     value={blog.title}
                     onChange={(e) => setBlog(prev => ({ ...prev, title: e.target.value }))}
@@ -61,62 +40,11 @@ export const Publish = () => {
                     placeholder="Enter your blog title"
                 />
                 <TextEditor value={blog.content} onChange={handleContentChange} />
-                <button
-                    onClick={handlePublish}
-                    type="button"
-                    className="mt-10 w-48 h-12 text-gray-800 hover:text-white border border-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-lg text-center transition duration-200"
-                >
-                    Publish Blog
-                </button>
             </div>
+            <div className='bg-[#fafafa] w-full h-64 flex flex-col justify-center items-center gap-2'>
+                <div className='mt-4 text-3xl text-gray-500'>Select text to change formatting, add headers, or create links.</div>
+                <div className='h-40'><img src={bottomImg} alt="" /></div>
+                </div>
         </div>
     );
 };
-
-// function TextEditor({ value, onChange }: { value: string; onChange: (value: string) => void }) {
-//     const quillRef = useRef(null);
-//     return (
-//         <div className="w-10/12 my-5 flex-grow">
-//             <ReactQuill
-//                 ref={quillRef}
-//                 value={value}
-//                 theme="bubble"
-//                 onChange={onChange}
-//                 modules={TextEditor.modules}
-//                 formats={TextEditor.formats}
-//                 style={{ minHeight: '400px', height: 'auto', overflowY: 'visible' }}
-//                 className="h-96 text-xl text-gray-800 bg-white border border-gray-300 rounded-lg"
-//                 placeholder="Write your blog content here"
-//             />
-//         </div>
-//     );
-// }
-
-
-
-// TextEditor.modules = {
-//     toolbar: {
-//         container: [
-//             [{ 'header': '1' }, { 'header': '2' }],
-//             [{ 'font': [] }],
-//             [{ 'size': [false, 'large'] }],
-//             [{ 'align': [] }],
-//             ['bold', 'italic', 'underline', 'strike'],
-//             [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-//             ['blockquote', 'code-block'],
-//             ['link', 'image'],
-//             ['clean']
-//         ],
-//     }
-// };
-
-// TextEditor.formats = [
-//     'header', 'font', 'size', 'align',
-//     'bold', 'italic', 'underline', 'strike',
-//     'color', 'background', 'list', 'bullet',
-//     'link', 'image', 'code-block', 'blockquote'
-// ];
-
-// hljs.configure({
-//     languages: undefined,
-// });

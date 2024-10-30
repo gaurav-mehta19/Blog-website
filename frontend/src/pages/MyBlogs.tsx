@@ -2,9 +2,12 @@ import { useParams } from "react-router-dom";
 import { useMyblogs } from "../hooks/myblogs";
 import { Appbar } from "../components/Appbar";
 import { BlogCard } from "../components/BlogCard";
+import { popdowncardAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/popdownCard";
+import { useRecoilState } from "recoil";
 
 export const MyBlogs = ()=> {
     const { userId } = useParams();
+    const [showPopDownCard, setShowPopDownCard] = useRecoilState(popdowncardAtom);
     const {loading, myblogs} = useMyblogs({
         userId:userId || ""
     });
@@ -17,7 +20,11 @@ export const MyBlogs = ()=> {
      return (
         <div>
             <Appbar />
-            <div className="mt-20">
+            <div className="mt-20" onClick={()=>{
+                        if(showPopDownCard){
+                            setShowPopDownCard(false);
+                        }
+                    }} >
                 <div className="flex flex-col mt-3 justify-center max-w-5xl">
                     {myblogs.map(blog => <BlogCard
                         key={blog.id}

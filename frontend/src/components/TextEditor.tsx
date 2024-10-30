@@ -8,6 +8,8 @@ import axios from 'axios';
 export const TextEditor = ({ value, onChange }: { value: string; onChange: (value: string) => void }) => {
     const quillRef = useRef<ReactQuill | null>(null);  // Create a reference for the Quill editor
 
+   
+
     useEffect(() => {
         hljs.configure({
             languages: undefined,  // Highlight all supported languages

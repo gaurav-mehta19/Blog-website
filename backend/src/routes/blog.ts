@@ -4,6 +4,7 @@ import { withAccelerate } from '@prisma/extension-accelerate'
 import { verify } from 'hono/jwt';
 import { createBlogInput } from '@gaurav_mehta/medium-common/dist/zod/zod';
 import { getCookie } from "hono/cookie";
+import { use } from "hono/jsx";
 
 export const blogRouter = new Hono<{
     Bindings: {
@@ -20,7 +21,7 @@ blogRouter.use('/*', async (c, next) => {
 
     if (!token) {
         c.status(405);
-        return c.json({ error: 'Unauthorized' });
+        return c.json({ msg : 'Unauthorized' });
     }
     try {
         const userData = await verify(token, c.env.JWT_SECRET);
@@ -28,12 +29,12 @@ blogRouter.use('/*', async (c, next) => {
             c.set('userId', userData.id);
             await next();
         } else {
-            return c.json({ message: "You are not logged in" });
+            return c.json({ msg : "You are not logged in" });
         }
     } catch (e) {
         console.error(e);
         c.status(500);
-        return c.json({ error: "You are not logged in" });
+        return c.json({ msg : "You are not logged in" });
     }
 });
 
@@ -49,26 +50,32 @@ blogRouter.post('/', async (c) => {
     if (!success) {
         c.status(400);
         return c.json({
-            msg: "Inputs incorrect "
+            error : "Inputs incorrect "
         })
     }
     const userId = c.get('userId')
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
+    try{
+        const blog = await prisma.blog.create({
+            data: {
+                title: title,
+                content: content,
+                authorId: userId,
+                image:firstImgUrl,
+            }
+        })
     
-    const blog = await prisma.blog.create({
-        data: {
-            title: title,
-            content: content,
-            authorId: userId,
-            image:firstImgUrl,
-        }
-    })
-
-    return c.json({
-        id: blog.id
-    })
+        return c.json({
+            id: blog.id,
+            userId: blog.authorId
+        })
+    }catch(e){
+        c.status(500);
+        return c.json({ msg : "Internal Server Error" });
+    
+}
 })
 
 // blogRouter.put('/', async (c) => {
@@ -102,6 +109,29 @@ blogRouter.post('/', async (c) => {
 //     })
 // })
 
+blogRouter.delete('/:id', async (c) => {
+    const id = await c.req.param('id')
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate())
+
+    try{
+       await prisma.blog.delete({
+            where:{
+                id:id
+            }
+        })
+
+        return c.json({
+            msg : "Blog Deleted"
+        })
+    }catch(e){
+        c.status(500);
+        return c.json({ msg : "Internal Server Error" });
+    }
+})
+
+
 blogRouter.get('/bulk', async (c) => {
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
@@ -127,8 +157,8 @@ blogRouter.get('/bulk', async (c) => {
       
       return c.json({ blogs });
     } catch (e) {
-      console.error(e);
-      return c.status(500)
+      c.status(500)
+      return c.json({ msg: "Internal Server Error" });
     }
   });
   
@@ -165,8 +195,8 @@ blogRouter.get('/myblogs/:userId', async (c) => {
         })
     }
     catch (e) {
-        c.status(411);
-        return c.json({ error: "Invalid" })
+        c.status(500);
+        return c.json({ msg: "Internal Server error" })
     }
 
 })
@@ -202,8 +232,8 @@ blogRouter.get('/:id', async (c) => {
         })
     }
     catch (e) {
-        c.status(411);
-        return c.json({ error: "Invalid" })
+        c.status(500);
+        return c.json({ msg: "Internal Server error" })
     }
 
 })

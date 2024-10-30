@@ -7,6 +7,7 @@ import moment from 'moment';
 export interface Blog {
   author: {
     name: string;
+    description: string;
   };
   title: string;
   content: string;

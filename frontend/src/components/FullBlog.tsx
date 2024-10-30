@@ -1,17 +1,31 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Blog } from "../hooks/blog"
 import { useRecoilState } from "recoil";
 import { deletepopAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/deletePopCard";
 import { useState } from "react";
-
+import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 
 
 export const FullBlog = ({ blog } : {blog : Blog}) => {
+    const navigate = useNavigate();
     const [showDeletePop, setShowDeletePop] = useRecoilState(deletepopAtom);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-
+    const { userId , id } = useParams();
+    
     const location = useLocation();
+
+    function handleDeleteConfirm() {
+        try{
+            axios.delete(`${BACKEND_URL}/api/v1/blog/${id}`, {
+                withCredentials: true,
+            });
+            navigate(`/myblogs/${userId}`);
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     function DeleteBlog() {
         if (location.pathname.startsWith("/myblog")) {
@@ -47,7 +61,7 @@ export const FullBlog = ({ blog } : {blog : Blog}) => {
                                 <div className="flex justify-around">
                                     <button
                                         onClick={() => {
-                                            // handleDeleteConfirm();
+                                            handleDeleteConfirm();
                                             setShowDeleteConfirm(false);
                                         }}
                                         className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
@@ -88,10 +102,10 @@ export const FullBlog = ({ blog } : {blog : Blog}) => {
                 <div className="col-span-1 w-full h-full p-5">
                     <div className="text-gray-700 text-2xl ml-20 mt-8 font-medium">Author</div>
                     <div className="flex justify-start items-center">
-                        <div className="w-8 h-5 bg-gray-300 rounded-full ml-16 mr-5" />
+                        <div className="w-5 h-5 bg-gray-300 rounded-full ml-16 mr-5" />
                         <div className="mt-6">
                             <div className="text-xl font-bold mb-1.5">{blog.author.name || "Anonymous"}</div>
-                            <div className="text-gray-400">Master of mirth, purveyor of puns and the funniest person in the kingdom</div>
+                            <div className="text-gray-400">{blog.author.description}</div>
                         </div>
                     </div>
                 </div>
