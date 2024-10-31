@@ -18,7 +18,6 @@ export const blogRouter = new Hono<{
 
 blogRouter.use('/*', async (c, next) => {
     const token = await getCookie(c, "token");
-
     if (!token) {
         c.status(405);
         return c.json({ error : 'Unauthorized' });
