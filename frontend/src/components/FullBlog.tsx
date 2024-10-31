@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Blog } from "../hooks/blog"
 import { useRecoilState } from "recoil";
-import { deletepopAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/deletePopCard";
+import { deletepopAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/deletepopCard";
 import { useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
@@ -39,7 +39,7 @@ export const FullBlog = ({ blog } : {blog : Blog}) => {
                     <div className="text-md font-light text-slate-500 mb-3">
                         {blog.publishDate}
                     </div>
-                    <div onClick={() => setShowDeletePop(prev => !prev)} className="relative cursor-pointer">
+                    <div onClick={() => setShowDeletePop((prev:boolean) => !prev)} className="relative cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-7">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                         </svg>
@@ -102,7 +102,7 @@ export const FullBlog = ({ blog } : {blog : Blog}) => {
                         {blog.title}
                     </div>
                     <DeleteBlog />
-                    <div className="text-justify" dangerouslySetInnerHTML={{ __html: blog.content }} />
+                    <div className="text-justify" dangerouslySetInnerHTML={{ __html: blog.content as string }} />
                 </div>
                 <div className="col-span-1 w-full h-full p-5">
                     <div className="text-gray-700 text-2xl ml-20 mt-8 font-medium">Author</div>
