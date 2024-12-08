@@ -38,7 +38,7 @@ export const Signup = () => {
       toast.dismiss(loadingToastId);
       toast.success("Account created successfully");
       navigate("/blogs");
-    } catch (e: any) {
+    } catch (e:any) {
       toast.dismiss(loadingToastId);
       if (e.response.data.error) {
         toast.warning(e.response.data.error);

@@ -71,7 +71,7 @@ function CreateBLogVisibility() {
                 content: "",
                 firstImgUrl: "",
             })
-        } catch (e: any) {
+        } catch (e:any) {
             toast.dismiss(loadingToastId);
             if (e.response.data.error) {
                 toast.warning(e.response.data.error);
@@ -126,6 +126,24 @@ function AppbarContent() {
         }
     }
 
+    async function HandleTryOn() {
+        try{
+            const loadingToastId = toast.loading("Signing in as a test uses")
+            await axios.post(`${BACKEND_URL}/api/v1/user/signin`,{
+                email:"testuser@gmail.com",
+                password:"testuser123"
+            },{
+                withCredentials:true
+            })
+            toast.dismiss(loadingToastId)
+            toast.success("Signed in successfully")
+            navigate("/blogs")
+        }catch(e:any){
+            console.log(e);
+        }
+        
+    }
+
     const location = useLocation();
     if (location.pathname === '/') {
         return (
@@ -135,6 +153,9 @@ function AppbarContent() {
                 </button>
                 <button onClick={() => navigate('signin')} type="button" className="text-white bg-black border-slate-600 hover:bg-gray-900 focus:outline-none font-medium rounded-lg text-md px-6 py-1.5 text-center  mb-2">
                     Sign In
+                </button>
+                <button onClick={HandleTryOn} type="button" className="text-white bg-black border-slate-600 hover:bg-gray-900 focus:outline-none font-medium rounded-lg text-md px-6 py-1.5 text-center  mb-2">
+                    Try Now !
                 </button>
             </div>
         )

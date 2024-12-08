@@ -7,6 +7,7 @@ import { useRecoilState } from "recoil";
 
 export function Blogs() {
     const { loading, blogs } = useBlogs();
+    
     const [showPopDownCard, setShowPopDownCard] = useRecoilState(popdowncardAtom);
     return (
         <div>

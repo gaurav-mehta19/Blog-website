@@ -17,7 +17,7 @@ const app = new Hono<{
 }>();
 
 app.use('/api/*', cors({
-	origin: "http://localhost:3000",
+	origin: ["https://blog-website-hlzm.vercel.app","http://localhost:5173"],
 	credentials: true
 }))
 

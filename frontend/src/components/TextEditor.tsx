@@ -1,9 +1,11 @@
 import 'react-quill/dist/quill.bubble.css';
 import ReactQuill from "react-quill";
 import 'highlight.js/styles/github.css'; 
-import hljs from 'highlight.js';
 import { useRef, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import hljs from "highlight.js";
+
+
 
 export const TextEditor = ({ value, onChange }: { value: string; onChange: (value: string) => void }) => {
     const quillRef = useRef<ReactQuill | null>(null);  // Create a reference for the Quill editor
@@ -11,10 +13,15 @@ export const TextEditor = ({ value, onChange }: { value: string; onChange: (valu
    
 
     useEffect(() => {
-        hljs.configure({
-            languages: undefined,  // Highlight all supported languages
-        });
-        hljs.highlightAll();  // Apply syntax highlighting
+        const editor = quillRef.current?.getEditor();
+        if (editor) {
+            editor.on('text-change', () => {
+                const codeBlocks = document.querySelectorAll('pre code');
+                codeBlocks.forEach((block) => {
+                    hljs.highlightElement(block as HTMLElement);
+                });
+            });
+        }
     }, []);
 
     const imageHandler = useCallback(() => {
