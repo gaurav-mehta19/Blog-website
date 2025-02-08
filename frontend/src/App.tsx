@@ -9,7 +9,7 @@ import { RecoilRoot } from "recoil"
 import { ProfilePage } from "./pages/ProfilePage"
 import { MyBlogs } from "./pages/MyBlogs"
 import { HomePage } from "./pages/LandingPage"
-import AppLayout from "./components/Route_protect"
+ import ProtectedRoute from "./components/Route_protect"
 
 
 
@@ -19,20 +19,18 @@ function App() {
     <>
       <RecoilRoot>
         <BrowserRouter>
-        <AppLayout>
           <Toaster richColors />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/signin" element={<SigninPage />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/blog/:id" element={<Blog />} />
-            <Route path="/publish" element={<Publish />} />
-            <Route path="/profilepage" element={<ProfilePage />} />
-            <Route path="/myblogs/:userId" element={<MyBlogs />} />
-            <Route path="/myblog/:userId/:id" element={<Blog />} />
+            <Route path="/blogs" element={<ProtectedRoute><Blogs /></ProtectedRoute>} />
+            <Route path="/blog/:id" element={<ProtectedRoute><Blog /></ProtectedRoute>} />
+            <Route path="/publish" element={<ProtectedRoute><Publish /></ProtectedRoute>} />
+            <Route path="/profilepage" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+            <Route path="/myblogs/:userId" element={<ProtectedRoute><MyBlogs /></ProtectedRoute>} />
+            <Route path="/myblog/:userId/:id" element={<ProtectedRoute><Blog /></ProtectedRoute>} />
           </Routes>
-          </AppLayout>
         </BrowserRouter>
       </RecoilRoot>
     </>

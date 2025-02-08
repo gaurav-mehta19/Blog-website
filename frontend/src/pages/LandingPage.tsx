@@ -92,7 +92,7 @@ export const HomePage = () => {
                 Trending on Medium
               </h2>
             </div>
-            <a href="#" className="text-gray-500 hover:text-gray-700 text-sm font-medium">
+            <a href="/blogs" className="text-gray-500 hover:text-gray-700 text-sm font-medium">
               View all trending articles →
             </a>
           </div>
@@ -146,7 +146,7 @@ export const HomePage = () => {
                 Connect with millions of readers and thought leaders. Share your stories, ideas, and expertise with a global audience.
               </p>
               <div className="mt-6 text-center">
-                <a href="#" className="text-yellow-600 hover:text-yellow-700 font-medium inline-flex items-center">
+                <a href="/blogs" className="text-yellow-600 hover:text-yellow-700 font-medium inline-flex items-center">
                   Meet our authors
                   <svg className="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -164,7 +164,7 @@ export const HomePage = () => {
                 Access exclusive stories, in-depth analysis, and expert insights. Quality content curated just for you.
               </p>
               <div className="mt-6 text-center">
-                <a href="#" className="text-green-600 hover:text-green-700 font-medium inline-flex items-center">
+                <a href="/blogs" className="text-green-600 hover:text-green-700 font-medium inline-flex items-center">
                   Explore premium
                   <svg className="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -182,8 +182,8 @@ export const HomePage = () => {
                 Enjoy Medium on all your devices. Save stories for later and keep your reading list synced everywhere.
               </p>
               <div className="mt-6 text-center">
-                <a href="#" className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center">
-                  Get the app
+                <a href="/blogs" className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center">
+                  Go to application
                   <svg className="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>
@@ -210,47 +210,31 @@ export const HomePage = () => {
             <div>
               <h4 className="font-bold mb-4">About</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white">About Medium</a></li>
-                <li><a href="#" className="hover:text-white">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
+                <li><a href="/blogs" className="hover:text-white">About Medium</a></li>
+                <li><a href="/blogs" className="hover:text-white">Terms of Service</a></li>
+                <li><a href="/blogs" className="hover:text-white">Privacy Policy</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-bold mb-4">Write</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white">Write on Medium</a></li>
-                <li><a href="#" className="hover:text-white">Writers Program</a></li>
-                <li><a href="#" className="hover:text-white">Writing Guidelines</a></li>
+                <li><a href="/blogs" className="hover:text-white">Write on Medium</a></li>
+                <li><a href="/blogs" className="hover:text-white">Writers Program</a></li>
+                <li><a href="/blogs" className="hover:text-white">Writing Guidelines</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-bold mb-4">Connect</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white">Help Center</a></li>
-                <li><a href="#" className="hover:text-white">Contact Us</a></li>
-                <li><a href="#" className="hover:text-white">Follow us</a></li>
+                <li><a href="/blogs" className="hover:text-white">Help Center</a></li>
+                <li><a href="/blogs" className="hover:text-white">Contact Us</a></li>
+                <li><a href="/blogs" className="hover:text-white">Follow us</a></li>
               </ul>
             </div>
           </div>
         </div>
       </footer>
-
-
       </div>
-            {/* <div style={{width:'1000px'}} className="text-7xl font-semibold text-center">
-                Discover the Best Content on the Web
-            </div>
-            <div style={{width:'900px'}} className="mt-6 text-2xl text-center w-3/6">
-                Our blog feature the latest news, insights, and stories from the industry experts. Join our community and stay up-to-date with the latest trends.
-            </div>
-            <div className="flex gap-6 justify-center items-center mt-10">
-                <button onClick={() => navigate('signin')} type="button" className="text-gray-900 hover:text-black border hover:bg-gray-100  focus:outline-none  font-medium rounded-lg text-xl px-8 py-2 text-center mb-2">
-                    Sign In
-                </button>
-                <button onClick={() => navigate('signup')} type="button" className="text-white bg-black border-slate-600 hover:bg-gray-900 focus:outline-none font-medium rounded-lg text-xl px-8 py-2 text-center  mb-2">
-                    Sign Up
-                </button>
-            </div> */}
         </div>
     )
 }

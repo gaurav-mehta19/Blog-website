@@ -25,27 +25,21 @@ export const Appbar = () => {
     }
 
     return (
-        <div className="relative">
-            <div className="fixed top-0 left-0 right-0 z-50 border-b border-slate-200 shadow-sm  p-1.5 flex justify-between px-32 h-16 bg-white" onClick={() => {
-                if (showPopDownCard) {
-                    setShowPopDownCard(false);
-                }
-            }}>
-                <Link to={'/blogs'}>
-                    <div className="flex justify-center items-center gap-1 mt-1 ml-28">
-                        <div className="mt-1 mr-1">
-                        <BookOpen className="h-8 w-8" />
-                        </div>
-                        <div className="tracking-wide mt-1 font-extrabold text-2xl font-mono">
-                            MEDIUM
-                        </div>
-                    </div>
-                </Link>
-                <div className="relative mr-36">
-                    <AppbarContent />
+        <div className="fixed top-0 left-0 right-0 z-50 border-b border-slate-200 shadow-sm p-1.5 flex justify-between items-center px-4 sm:px-10 md:px-16 lg:px-32 h-14 sm:h-16 bg-white">
+        <Link to={'/blogs'}>
+            <div className="flex justify-center items-center text-start gap-1 mt-1 ml-4 sm:ml-10 md:ml-16 lg:ml-28">
+                <div className="mt-1 mr-1">
+                    <BookOpen className="h-6 w-6 sm:h-8 sm:w-8" />
+                </div>
+                <div className="tracking-wide mt-1 font-extrabold text-lg sm:text-xl md:text-2xl font-mono">
+                    MEDIUM
                 </div>
             </div>
+        </Link>
+        <div className="relative mr-4 sm:mr-16 lg:mr-36">
+            <AppbarContent />
         </div>
+    </div>
     );
 };
 
@@ -54,6 +48,13 @@ function CreateBLogVisibility() {
     const navigate = useNavigate();
     const [blog, setBlog] = useRecoilState(blogAtom);
     const handlePublish = async () => {
+       
+
+        if(blog.title.trim().length < 1 || blog.content.trim().length <1){
+            toast.warning("Please fill all feilds")
+            return;
+        }
+
         const loadingToastId = toast.loading("Publishing blog...");
 
         try {
@@ -149,16 +150,13 @@ function AppbarContent() {
     const location = useLocation();
     if (location.pathname === '/') {
         return (
-            <div className="flex gap-4 justify-center items-center mt-2">
-                <button onClick={() => navigate('signup')} type="button" className="text-gray-900 hover:text-black border hover:bg-gray-100  focus:outline-none  font-medium rounded-lg text-md px-6 py-1.5 text-center mb-2">
-                    Sign Up
-                </button>
-                <button onClick={() => navigate('signin')} type="button" className="text-white bg-black border-slate-600 hover:bg-gray-900 focus:outline-none font-medium rounded-lg text-md px-6 py-1.5 text-center  mb-2">
-                    Sign In
-                </button>
-                <button onClick={HandleTryOn} type="button" className="text-white bg-black border-slate-600 hover:bg-gray-900 focus:outline-none font-medium rounded-lg text-md px-6 py-1.5 text-center  mb-2">
-                    Try Now !
-                </button>
+            <div className="flex gap-8 justify-center items-center mt-2">
+                <a href="/blogs" className="text-gray-500 mb-2 hover:text-gray-900">Our Story</a>
+                <a href="/signin" className="text-gray-500 mb-2 hover:text-gray-900">Write</a>
+                <a href="/signin" className="text-gray-500 mb-2 hover:text-gray-900">Sign In</a>
+                <button onClick={HandleTryOn} className="bg-black mb-2 text-white rounded-lg px-4 py-2 hover:bg-gray-800">
+                    Try Now!
+              </button>
             </div>
         )
     }

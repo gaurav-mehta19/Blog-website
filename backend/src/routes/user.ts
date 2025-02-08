@@ -129,7 +129,12 @@ userRouter.get('/profile', async (c) => {
 
 userRouter.post('/signout', async (c) => {
   try {
-    deleteCookie(c, 'token', { path: '/' });
+    deleteCookie(c, 'token', {
+      path: '/',
+      httpOnly: true,
+      secure: true, // Must match the cookie settings
+      sameSite: 'None',
+    });
     return c.json({ message: "Logged out" });
   } catch (e) {
     c.status(500);
