@@ -45,7 +45,7 @@ export const FullBlog = ({ blog } : {blog : Blog}) => {
                         </svg>
 
                         {showDeletePop && (
-                            <div className="absolute bottom-full -right-10 w-40 bg-slate-50 border border-gray-300 rounded-md shadow-sm z-10">
+                            <div className="absolute bottom-full  -right-20 w-40 bg-gray-50 border border-gray-100 rounded-sm shadow-sm z-10">
                                 <button
                                     onClick={() => {
                                         setShowDeleteConfirm(prev => !prev);
@@ -96,13 +96,13 @@ export const FullBlog = ({ blog } : {blog : Blog}) => {
 
     return (
         <div className="full-blog">
-            <div className="grid grid-cols-3 gap-4 px-10 h-full mx-20">
+            <div className="grid grid-cols-3 gap-4 px-10 h-full mx-48">
                 <div className="col-span-2 w-full h-full">
                     <div className="text-4xl font-bold mt-8 mb-3 overflow-auto">
                         {blog.title}
                     </div>
                     <DeleteBlog />
-                    <div className="text-justify" dangerouslySetInnerHTML={{ __html: blog.content as string }} />
+                    <div className="text-justify mb-20" dangerouslySetInnerHTML={{ __html: blog.content as string }} />
                 </div>
                 <div className="col-span-1 w-full h-full p-5">
                     <div className="text-gray-700 text-2xl ml-20 mt-8 font-medium">Author</div>

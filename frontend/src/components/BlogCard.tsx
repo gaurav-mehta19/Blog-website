@@ -35,7 +35,7 @@ export const BlogCard = ({ authorName, title, content, publishedDate, id, firstI
 
     return (
         <Link to={getLinkPath()}>
-            <div className="mt-4 cursor-pointer max-h-52 mx-32">
+            <div className="mt-4 cursor-pointer max-h-64 ml-60">
                 <div className="border-b pb-1">
                     <div className="flex">
                         <div className="flex justify-center flex-col">
@@ -49,14 +49,14 @@ export const BlogCard = ({ authorName, title, content, publishedDate, id, firstI
                     </div>
                     <div className="flex justify-between items-center mb-1.5 gap-10">
                         <div className="max-w-xl">
-                            <div className="mt-2 text-xl font-bold font-serif">
+                            <div className="mt-2 text-2xl font-bold font-serif">
                                 {truncatedTitle}
                             </div>
                             <div className="text-sm font-light text-slate-600 my-1 line-clamp-3 !bg-white overflow-hidden text-ellipsis" dangerouslySetInnerHTML={{ __html: sanitizedContent.slice(0,120) + "..." }}>
                             </div>
                             <div className="flex justify-start gap-3">
                                 <div className="text-xs mt-2 font-thin text-slate-600">
-                                    {`${Math.ceil(content.length / 100)} minutes`}
+                                    {`${Math.ceil(content.length / 600)} minutes`}
                                 </div>
                                 <div>
                                     <button type="button" className="mt-1.5 text-gray-500 border border-gray-500 hover:text-slate-400 focus:ring-1 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-1 text-center inline-flex items-center">
@@ -69,7 +69,7 @@ export const BlogCard = ({ authorName, title, content, publishedDate, id, firstI
                             </div>
                         </div>
                         <div>
-                            {firstImgUrl && <img src={firstImgUrl} alt="First blog image" className="mt-4 w-36 h-24" />}
+                            {firstImgUrl && <img src={firstImgUrl} alt="First blog image" className="mt-4 w-44 h-28" />}
                         </div>
                     </div>
                 </div>

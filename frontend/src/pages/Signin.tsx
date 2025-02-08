@@ -1,18 +1,14 @@
 
 
 import { Signin } from "../components/Signin"
-import { Quote } from "../components/Quote"
 
 export function SigninPage(){
     return (
     <div>
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-yellow-50 to-white px-4">
             <div>
              <Signin/>
             </div>
-            <div>
-            <Quote/>
-            </div>  
         </div> 
     </div>
 )

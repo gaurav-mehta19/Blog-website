@@ -3,7 +3,7 @@ import "../shimmer.css";
 export const Skleton2 = () => {
     return (
         <div>
-            <div className="grid grid-cols-3 gap-4 px-10 h-full mx-20">
+            <div className="grid grid-cols-3 gap-4 px-10 h-full mx-48">
                
                 <div className="col-span-2 w-full h-full">
                     <div className="text-6xl font-bold mt-8 mb-4 h-10 bg-slate-100 shimmer">

@@ -1,16 +1,12 @@
 import { Signup } from "../components/Signup"
-import { Quote } from "../components/Quote"
 
 export function SignupPage(){
     return (
     <div>
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-yellow-50 to-white px-4">
             <div>
                 <Signup/>
             </div>
-            <div>
-            <Quote/>
-            </div>  
         </div> 
     </div>
 )

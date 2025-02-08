@@ -100,8 +100,8 @@
 
 pre {
     background-color: #f9fafb; /* Light background for code blocks */
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     color: #333; /* Dark text color */
     padding: 10px; /* Padding around code blocks */
     border-radius: 0.5rem; /* Rounded border */
@@ -114,8 +114,8 @@ img{
     margin: auto;
     width: 70%;
     height: auto;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     border-radius: 0.25rem;
 }
 
@@ -159,19 +159,19 @@ blockquote {
 
 
 h1 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
 h2 {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: bold;
 }
 
 p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 300;
-    line-height: 1.25;
+    line-height: 2rem;
 }
 
 ul {

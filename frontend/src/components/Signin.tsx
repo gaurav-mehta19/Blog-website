@@ -6,7 +6,9 @@ import { BACKEND_URL } from "../config";
 import { showPasswordAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/showPassword";
 import { useRecoilState } from "recoil";
 import { useRecoilValue } from "recoil";
+import { BookOpen,Lock } from 'lucide-react';
 import { toast } from "sonner";
+import { LucideIcon, Mail } from "lucide-react";
 
 
 
@@ -22,6 +24,10 @@ export const Signin = () => {
   async function sendRequest() {
     if (postInputs.email.trim().length < 1 || postInputs.password.trim().length < 1) {
       toast.warning("Please fill all fields");
+      return;
+    }
+    if(postInputs.password.trim().length < 8){
+      toast.warning("Password length must be 8")
       return;
     }
 
@@ -52,22 +58,21 @@ export const Signin = () => {
 
 
   return (
-    <div  style={{ userSelect: 'none' }} className="h-screen flex justify-center flex-col">
-      <div className="flex justify-center">
+    <div style={{ userSelect: 'none' }} className="h-[600px] w-[500px] space-y-8 bg-white p-8 rounded-2xl shadow-xl">
+      <div className="text-center flex flex-col items-center justify-center">
+        <div className="mb-6">
+          <BookOpen className="h-12 w-12 text-black text-center" />
+        </div>
         <div>
-          <div className="text-4xl text-center font-semibold px-20 mb-2">
-            Sign In
+          <div className="text-3xl text-center font-bold mb-2">
+            Welcome back
           </div>
-          <div className="text-gray-400 text-lg px-20 mb-8">
-            Don't have an account?
-            <Link className="pl-1 hover:underline" to={"/signup"}>
-              Sign up
-            </Link>
-          </div>
+          <p className="text-gray-600">Sign in to access your account</p>
           <LabelledInput
             id="signinEmail"
             label="Email"
             placeholder="xyz@gmail.com"
+            Icon={Mail}
             onChange={(e) => {
               setPostInputs((c) => ({ ...c, email: e.target.value }));
             }}
@@ -77,10 +82,17 @@ export const Signin = () => {
             type={showPassword ? "text" : "password"}
             label="Password"
             placeholder="Minimum 8 characters"
+            Icon={Lock}
             onChange={(e) => {
               setPostInputs((c) => ({ ...c, password: e.target.value }));
             }}
           ></LabelledInputPassword>
+
+           <div className="text-right">
+          <a href="#" className="text-sm font-medium text-yellow-600 hover:text-yellow-500">
+            Forgot password?
+          </a>
+        </div>
           <button
             onClick={sendRequest}
             className="mt-4 w-full text-lg h-12 rounded-md bg-black text-white hover:bg-gray-900"
@@ -88,6 +100,12 @@ export const Signin = () => {
           >
             Sign In
           </button>
+          <div className="text-gray-600 text-lg mt-6 mb-8">
+            Don't have an account?
+            <Link className="pl-1 text-yellow-600 hover:underline hover:text-yellow-500" to={"/signup"}>
+              Sign up
+            </Link>
+          </div>
         </div>
       </div>
     </div>
@@ -100,6 +118,7 @@ interface LabelledInputtype {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   type?: string;
   id?: string;
+  Icon: LucideIcon;
 }
 
 export function LabelledInput({
@@ -107,17 +126,19 @@ export function LabelledInput({
   placeholder,
   id,
   onChange,
+  Icon,
 }: LabelledInputtype) {
   return (
-    <div>
-      <label htmlFor={id} className="block mb-2 text-md font-semibold text-gray-900">
+    <div className="mt-6">
+      <label htmlFor={id} className="block mb-1 text-start text-md font-medium text-gray-900">
         {label}
       </label>
       <div className="relative">
+      <Icon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" size={20} />
         <input
           type="text"
           id={id}
-          className="mb-6 border border-gray-300 text-gray-900 text-md rounded-md focus:border-gray-500 block w-full p-2.5 outline-none"
+          className="mb-4 border border-gray-300 text-gray-900 text-md rounded-md focus:border-gray-500 block w-[400px] px-10 py-2.5  outline-none"
           placeholder={placeholder}
           onChange={onChange}
           required
@@ -133,19 +154,21 @@ export function LabelledInputPassword({
   placeholder,
   id,
   onChange,
+  Icon
 }: LabelledInputtype) {
   const [showPassword, setShowPassword] = useRecoilState(showPasswordAtom);
   const inputType = type === "password" && showPassword ? "text" : type;
   return (
     <div>
-      <label htmlFor={id} className="block mb-2 text-md font-semibold text-gray-900">
+      <label htmlFor={id} className="block mb-1 text-start text-md font-medium text-gray-900">
         {label}
       </label>
       <div className="relative">
+      <Icon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" size={20} />
         <input
           type={inputType}
           id={id}
-          className="mb-6 border border-gray-300 text-gray-900 text-md rounded-md focus:border-gray-500 block w-full p-2.5 outline-none"
+          className="mb-4 border border-gray-300 text-gray-900 text-md rounded-md focus:border-gray-500 block w-full py-2.5 px-10 outline-none"
           placeholder={placeholder}
           onChange={onChange}
           required

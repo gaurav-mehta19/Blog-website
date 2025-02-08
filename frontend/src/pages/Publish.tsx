@@ -30,7 +30,7 @@ export const Publish = () => {
             }
         }}>
             <Appbar />
-            <div className="mx-5 mt-20 my-5 h-full flex flex-col items-center" >
+            <div className="ml-28 mt-20 mr-36 my-5 h-full flex flex-col items-center" >
                 <input
                     value={blog.title}
                     onChange={(e) => setBlog(prev => ({ ...prev, title: e.target.value }))}
