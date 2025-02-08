@@ -25,7 +25,11 @@ export const Appbar = () => {
     }
 
     return (
-        <div className="fixed top-0 left-0 right-0 z-50 border-b border-slate-200 shadow-sm p-1.5 flex justify-between items-center px-4 sm:px-10 md:px-16 lg:px-32 h-14 sm:h-16 bg-white">
+        <div onClick={() => {
+            if(showPopDownCard){
+                setShowPopDownCard(false)
+            }
+        }} className="fixed top-0 left-0 right-0 z-50 border-b border-slate-200 shadow-sm p-1.5 flex justify-between items-center px-4 sm:px-10 md:px-16 lg:px-32 h-14 sm:h-16 bg-white">
         <Link to={'/blogs'}>
             <div className="flex justify-center items-center text-start gap-1 mt-1 ml-4 sm:ml-10 md:ml-16 lg:ml-28">
                 <div className="mt-1 mr-1">
