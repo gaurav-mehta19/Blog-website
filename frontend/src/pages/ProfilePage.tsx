@@ -38,18 +38,18 @@ export const ProfilePage = () => {
                         
                         <div className="space-y-6">
                             <div>
-                                <h1 className="text-3xl font-bold text-gray-900">{profile.name}</h1>
+                                <h1 className="text-3xl font-bold text-gray-900">{profile?.name}</h1>
                             </div>
                             
                             <div className="flex items-center space-x-2 text-gray-600">
                                 <Mail className="w-5 h-5" />
-                                <span>{profile.email}</span>
+                                <span>{profile?.email}</span>
                             </div>
                             
                             <div className="flex items-start space-x-2">
                                 <FileText className="w-5 h-5 text-gray-600 mt-1" />
                                 <p className="text-gray-600 leading-relaxed">
-                                    {profile.description || "No description provided"}
+                                    {profile?.description || "No description provided"}
                                 </p>
                             </div>
                         </div>

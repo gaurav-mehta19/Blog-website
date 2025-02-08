@@ -168,7 +168,7 @@ function AppbarContent() {
         return (
             <div className="flex gap-1">
                 <CreateBLogVisibility />
-                {profile.name && (
+                {profile?.name && (
                     <div onClick={() => setShowPopDownCard(prev => !prev)} className="relative inline-flex items-center justify-center me-3 w-9 h-9 overflow-hidden bg-yellow-200 rounded-full hover:cursor-pointer mt-1" style={{ userSelect: 'none' }}>
                         <span className="font-bold text-xl text-black">
                             {profile.name[0].toUpperCase()}
@@ -188,7 +188,7 @@ function AppbarContent() {
                                     </div>
                                 </li>
                             </Link>
-                            <Link to={`/myblogs/${profile.id}`} onClick={() => setShowPopDownCard(prev => !prev)}>
+                            <Link to={`/myblogs/${profile?.id}`} onClick={() => setShowPopDownCard(prev => !prev)}>
                                 <li className="flex justify-start items-center gap-1.5 my-2 hover:bg-white rounded-xl mx-1 pl-5 h-8">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4 ml-4">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
