@@ -1,10 +1,9 @@
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useProfile } from "../hooks/profile";
 import { Loader } from "lucide-react";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { auth, loading, statusCode } = useProfile();
-  const location = useLocation();
+  const { loading, statusCode } = useProfile();
 
   if (loading) {
     return (

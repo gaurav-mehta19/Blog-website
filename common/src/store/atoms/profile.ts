@@ -1,9 +1,16 @@
 import { atom } from "recoil";
 
-export const profileAtom = atom({
+type Profile = {
+    id: string;
+    name: string;
+    email: string;
+    description: string;
+} | null;
+
+export const profileAtom = atom<Profile>({
     key: "profile",
     default: {
-        id:"",
+        id: "",
         name: "",
         email: "",
         description:""
