@@ -9,7 +9,7 @@ import { Skleton3 } from "./Skleton3";
 import { blogAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/blog";
 import { toast } from "sonner";
 import { BookOpen } from 'lucide-react';
-import { SquarePen } from 'lucide-react';
+import { Pen } from 'lucide-react';
 
 
 export const Appbar = () => {
@@ -101,7 +101,7 @@ function CreateBLogVisibility() {
         <div>
             <Link to={'/publish'}>
                 <button type="button" className="text-gray-900 hover:text-white border border-slate-300 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center me-6 mb-2 mt-1.5">
-                   <span className="flex gap-2 justify-center items-center"><span> <SquarePen className="h-5 w-5" /></span><span> Write Blog</span></span>
+                   <span className="flex gap-2 justify-center items-center"><span> <Pen className="h-4 w-4" /></span><span> Write Blog</span></span>
                 </button>
             </Link>
         </div>

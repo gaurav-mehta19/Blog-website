@@ -18,7 +18,7 @@ export const MyBlogs = () => {
     return (
         <div>
             <Appbar />
-            <div className="mt-20" onClick={() => {
+            <div className="pt-20 px-2 sm:px-4 md:px-6 lg:px-8"  onClick={() => {
                 if (showPopDownCard) {
                     setShowPopDownCard(false);
                 }
@@ -31,7 +31,7 @@ export const MyBlogs = () => {
                         <Skleton1 />
                     </div>
                 ) : (
-                    <div className="flex flex-col justify-center max-w-5xl" >
+                    <div className="flex flex-col justify-center max-w-3xl mx-auto" >
                         {myblogs.map((blog) => (
                             <BlogCard
                                 key={blog.id}

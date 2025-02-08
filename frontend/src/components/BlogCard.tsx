@@ -9,24 +9,19 @@ interface BlogCardtypes {
 }
 
 export const BlogCard = ({ authorName, title, content, publishedDate, id, firstImgUrl }: BlogCardtypes) => {
-
     const sanitizeContent = (html: string) => {
         return html
-            // Replace all tags except <p> with empty strings
             .replace(/<(?!\/?p\b)[^>]*>/gi, '')
-            // Optionally, remove any <p> tags that are empty or contain only whitespace
             .replace(/<p>\s*<\/p>/g, '');
     };
-    
 
     const sanitizedContent = sanitizeContent(content);
-
     const truncatedTitle = title.length > 60 ? title.slice(0, 60) + "..." : title;
 
     const getLinkPath = () => {
-        if(location.pathname ==='/blogs'){
+        if (location.pathname === '/blogs') {
             return `/blog/${id}`
-        }else if(location.pathname.startsWith("/myblogs")){
+        } else if (location.pathname.startsWith("/myblogs")) {
             const userId = location.pathname.split("/")[2]
             return `/myblog/${userId}/${id}`
         }
@@ -35,24 +30,24 @@ export const BlogCard = ({ authorName, title, content, publishedDate, id, firstI
 
     return (
         <Link to={getLinkPath()}>
-            <div className="mt-4 cursor-pointer max-h-64 ml-60">
+            <div className="mt-4 cursor-pointer max-h-64 md:ml-8 lg:-ml-56 ">
                 <div className="border-b pb-1">
-                    <div className="flex">
+                    <div className="flex items-center flex-wrap">
                         <div className="flex justify-center flex-col">
                             <Avatar name={authorName || "Anonymous"} />
                         </div>
                         <div className="text-sm font-extralight pl-2 text-slate-600">{authorName || "Anonymous"}</div>
-                        <div className="flex flex-col justify-center pl-2 ">
+                        <div className="flex flex-col justify-center pl-2">
                             <div className="h-0.5 w-0.5 rounded-full bg-slate-600"></div>
                         </div>
                         <div className="pl-2 text-sm font-thin">{publishedDate}</div>
                     </div>
-                    <div className="flex justify-between items-center mb-1.5 gap-10">
-                        <div className="max-w-xl">
-                            <div className="mt-2 text-2xl font-bold font-serif">
+                    <div className="flex justify-between items-start md:items-center mb-1.5 gap-4 md:gap-2">
+                        <div className="flex-1 max-w-3xl">
+                            <div className="mt-2 text-xl md:text-2xl font-bold font-serif">
                                 {truncatedTitle}
                             </div>
-                            <div className="text-sm font-light text-slate-600 my-1 line-clamp-3 !bg-white overflow-hidden text-ellipsis" dangerouslySetInnerHTML={{ __html: sanitizedContent.slice(0,120) + "..." }}>
+                            <div className="text-sm font-light text-slate-600 my-1 line-clamp-3 !bg-white overflow-hidden text-ellipsis" dangerouslySetInnerHTML={{ __html: sanitizedContent.slice(0, 120) + "..." }}>
                             </div>
                             <div className="flex justify-start gap-3">
                                 <div className="text-xs mt-2 font-thin text-slate-600">
@@ -68,9 +63,11 @@ export const BlogCard = ({ authorName, title, content, publishedDate, id, firstI
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            {firstImgUrl && <img src={firstImgUrl} alt="First blog image" className="mt-4 w-44 h-28" />}
-                        </div>
+                        {firstImgUrl && (
+                            <div className="hidden sm:block">
+                                <img src={firstImgUrl} alt="First blog image" className="mt-4 w-32 h-24 md:w-44 md:h-28 object-cover rounded-lg" />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -79,7 +76,6 @@ export const BlogCard = ({ authorName, title, content, publishedDate, id, firstI
 }
 
 function Avatar({ name }: { name: string }) {
-    // Define an array of background color classes
     const colors = [
         'bg-red-300',
         'bg-blue-300',

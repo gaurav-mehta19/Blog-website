@@ -7,16 +7,17 @@ import { useRecoilState } from "recoil";
 
 export function Blogs() {
     const { loading, blogs } = useBlogs();
-    
     const [showPopDownCard, setShowPopDownCard] = useRecoilState(popdowncardAtom);
+    
     return (
         <div>
             <Appbar />
-            <div className="pt-20 " onClick={()=>{
-                        if(showPopDownCard){
-                            setShowPopDownCard(false);
-                        }
-                    }} >
+            <div className="pt-20 px-2 sm:px-4 md:px-6 lg:px-8" 
+                onClick={() => {
+                    if(showPopDownCard) {
+                        setShowPopDownCard(false);
+                    }
+                }}>
                 {loading ? (
                     <div>
                         <Skleton1 />
@@ -25,7 +26,7 @@ export function Blogs() {
                         <Skleton1 />
                     </div>
                 ) : (
-                    <div className="flex flex-col justify-center max-w-5xl" >
+                    <div className="flex flex-col justify-start max-w-3xl mx-auto">
                         {blogs.map((blog) => (
                             <BlogCard
                                 key={blog.id}
@@ -35,7 +36,6 @@ export function Blogs() {
                                 content={blog.content}
                                 publishedDate={blog.publishDate}
                                 firstImgUrl={blog.image}
-                                
                             />
                         ))}
                     </div>
