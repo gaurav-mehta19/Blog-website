@@ -30,68 +30,152 @@ export const BlogCard = ({ authorName, title, content, publishedDate, id, firstI
 
     return (
         <Link to={getLinkPath()}>
-            <div className="mt-4 cursor-pointer max-h-64 md:ml-8 lg:-ml-56 ">
-                <div className="border-b pb-1">
-                    <div className="flex items-center flex-wrap">
-                        <div className="flex justify-center flex-col">
-                            <Avatar name={authorName || "Anonymous"} />
-                        </div>
-                        <div className="text-sm font-extralight pl-2 text-slate-600">{authorName || "Anonymous"}</div>
-                        <div className="flex flex-col justify-center pl-2">
-                            <div className="h-0.5 w-0.5 rounded-full bg-slate-600"></div>
-                        </div>
-                        <div className="pl-2 text-sm font-thin">{publishedDate}</div>
-                    </div>
-                    <div className="flex justify-between items-start md:items-center mb-1.5 gap-4 md:gap-2">
-                        <div className="flex-1 max-w-3xl">
-                            <div className="mt-2 text-xl md:text-2xl font-bold font-serif">
-                                {truncatedTitle}
-                            </div>
-                            <div className="text-sm font-light text-slate-600 my-1 line-clamp-3 !bg-white overflow-hidden text-ellipsis" dangerouslySetInnerHTML={{ __html: sanitizedContent.slice(0, 120) + "..." }}>
-                            </div>
-                            <div className="flex justify-start gap-3">
-                                <div className="text-xs mt-2 font-thin text-slate-600">
-                                    {`${Math.ceil(content.length / 600)} minutes`}
-                                </div>
-                                <div>
-                                    <button type="button" className="mt-1.5 text-gray-500 border border-gray-500 hover:text-slate-400 focus:ring-1 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-1 text-center inline-flex items-center">
-                                        <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                                            <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z" />
-                                        </svg>
-                                        <span className="sr-only">Icon description</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        {firstImgUrl && (
-                            <div className="hidden sm:block">
-                                <img src={firstImgUrl} alt="First blog image" className="mt-4 w-32 h-24 md:w-44 md:h-28 object-cover rounded-lg" />
-                            </div>
-                        )}
+            <article className="
+                group hover-lift cursor-pointer
+                bg-bg-primary border border-border-primary
+                rounded-lg p-6 mb-6 mx-auto max-w-4xl
+                shadow-theme-sm hover:shadow-theme-md
+                transition-all duration-300 ease-in-out
+                animate-fadeInUp
+            ">
+                {/* Author info */}
+                <div className="flex items-center gap-3 mb-4">
+                    <Avatar name={authorName || "Anonymous"} />
+                    <div className="flex items-center gap-2 text-sm">
+                        <span className="font-medium text-text-primary">
+                            {authorName || "Anonymous"}
+                        </span>
+                        <div className="w-1 h-1 rounded-full bg-text-secondary"></div>
+                        <time className="text-text-secondary">
+                            {publishedDate}
+                        </time>
+                        <div className="w-1 h-1 rounded-full bg-text-secondary"></div>
+                        <span className="text-text-secondary">
+                            {`${Math.ceil(content.length / 600)} min read`}
+                        </span>
                     </div>
                 </div>
-            </div>
+
+                {/* Content layout */}
+                <div className="flex flex-col sm:flex-row gap-6 items-start">
+                    {/* Text content */}
+                    <div className="flex-1 min-w-0">
+                        <h2 className="
+                            text-xl sm:text-2xl font-bold font-serif
+                            text-text-primary group-hover:text-theme-primary
+                            transition-colors duration-200
+                            line-clamp-2 mb-3
+                        ">
+                            {truncatedTitle}
+                        </h2>
+                        
+                        <div 
+                            className="
+                                text-text-secondary text-base leading-relaxed
+                                line-clamp-3 mb-4
+                            "
+                            dangerouslySetInnerHTML={{ 
+                                __html: sanitizedContent.slice(0, 150) + "..." 
+                            }}
+                        />
+
+                        {/* Action buttons */}
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <button 
+                                    className="
+                                        flex items-center gap-1
+                                        text-text-muted hover:text-theme-primary
+                                        transition-colors duration-200
+                                        group/btn
+                                    "
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                    }}
+                                >
+                                    <svg className="w-4 h-4 group-hover/btn:scale-110 transition-transform duration-200" fill="currentColor" viewBox="0 0 18 18">
+                                        <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z" />
+                                    </svg>
+                                </button>
+                                
+                                <button 
+                                    className="
+                                        text-text-muted hover:text-theme-primary
+                                        transition-colors duration-200
+                                    "
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                    }}
+                                >
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <span className="
+                                text-theme-primary font-medium text-sm
+                                opacity-0 group-hover:opacity-100
+                                transition-opacity duration-200
+                            ">
+                                Read more →
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Featured image */}
+                    {firstImgUrl && (
+                        <div className="w-full sm:w-40 flex-shrink-0">
+                            <div className="aspect-[4/3] overflow-hidden rounded-lg shadow-theme-sm">
+                                <img 
+                                    src={firstImgUrl} 
+                                    alt={title}
+                                    className="
+                                        w-full h-full object-cover
+                                        group-hover:scale-105
+                                        transition-transform duration-300
+                                    "
+                                />
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </article>
         </Link>
     );
 }
 
 function Avatar({ name }: { name: string }) {
     const colors = [
-        'bg-red-300',
-        'bg-blue-300',
-        'bg-green-300',
-        'bg-yellow-300',
-        'bg-purple-300',
-        'bg-pink-300',
-        'bg-teal-300',
-        'bg-orange-300'
+        'bg-gradient-to-br from-red-500 to-red-600',
+        'bg-gradient-to-br from-blue-500 to-blue-600',
+        'bg-gradient-to-br from-green-500 to-green-600',
+        'bg-gradient-to-br from-yellow-500 to-yellow-600',
+        'bg-gradient-to-br from-purple-500 to-purple-600',
+        'bg-gradient-to-br from-pink-500 to-pink-600',
+        'bg-gradient-to-br from-teal-500 to-teal-600',
+        'bg-gradient-to-br from-orange-500 to-orange-600',
+        'bg-gradient-to-br from-indigo-500 to-indigo-600',
+        'bg-gradient-to-br from-cyan-500 to-cyan-600'
     ];
 
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    // Use a deterministic color based on the name to ensure consistency
+    const colorIndex = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % colors.length;
+    const selectedColor = colors[colorIndex];
 
     return (
-        <div className={`relative inline-flex items-center justify-center w-6 h-6 overflow-hidden ${randomColor} rounded-full`}>
-            <span className="font-semibold text-xs text-black">{name[0].toUpperCase()}</span>
+        <div className={`
+            relative inline-flex items-center justify-center 
+            w-10 h-10 overflow-hidden rounded-full
+            ${selectedColor} hover:scale-110
+            transition-transform duration-200
+            shadow-theme-sm ring-2 ring-bg-primary
+        `}>
+            <span className="font-bold text-sm text-white drop-shadow-sm">
+                {name[0].toUpperCase()}
+            </span>
         </div>
     );
 }

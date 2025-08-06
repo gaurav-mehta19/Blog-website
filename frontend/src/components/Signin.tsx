@@ -58,54 +58,95 @@ export const Signin = () => {
 
 
   return (
-    <div style={{ userSelect: 'none' }} className="h-[600px] w-[500px] space-y-8 bg-white p-8 rounded-2xl shadow-xl">
-      <div className="text-center flex flex-col items-center justify-center">
-        <div className="mb-6">
-          <BookOpen className="h-12 w-12 text-black text-center" />
+    <div style={{ userSelect: 'none' }} className="w-full max-w-6xl mx-auto bg-bg-primary px-24 py-12 rounded-3xl shadow-theme-xl border border-border-primary animate-fadeInUp backdrop-blur-sm">
+      <div className="text-center mb-8">
+        <div className="mb-6 relative">
+          <div className="w-16 h-16 bg-theme-primary rounded-full flex items-center justify-center mx-auto shadow-theme-lg animate-float">
+            <BookOpen className="h-8 w-8 text-white" />
+          </div>
         </div>
         <div>
-          <div className="text-3xl text-center font-bold mb-2">
+          <div className="text-3xl font-bold mb-2 text-text-primary animate-fadeInDown">
             Welcome back
           </div>
-          <p className="text-gray-600">Sign in to access your account</p>
+          <p className="text-text-secondary animate-fadeInUp" style={{ animationDelay: '0.1s' }}>
+            Sign in to continue your journey
+          </p>
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        <div className="animate-fadeInUp px-8" style={{ animationDelay: '0.2s' }}>
           <LabelledInput
             id="signinEmail"
             label="Email"
-            placeholder="xyz@gmail.com"
+            placeholder="Enter your email address"
             Icon={Mail}
             onChange={(e) => {
               setPostInputs((c) => ({ ...c, email: e.target.value }));
             }}
-          ></LabelledInput>
+          />
+        </div>
+
+        <div className="animate-fadeInUp px-8" style={{ animationDelay: '0.3s' }}>
           <LabelledInputPassword
             id="signinPassword"
             type={showPassword ? "text" : "password"}
             label="Password"
-            placeholder="Minimum 8 characters"
+            placeholder="Enter your password"
             Icon={Lock}
             onChange={(e) => {
               setPostInputs((c) => ({ ...c, password: e.target.value }));
             }}
-          ></LabelledInputPassword>
+          />
+        </div>
 
-           <div className="text-right">
-          <a href="#" className="text-sm font-medium text-yellow-600 hover:text-yellow-500">
+        <div className="flex items-center justify-between animate-fadeInUp px-8" style={{ animationDelay: '0.4s' }}>
+          <label className="flex items-center">
+            <input type="checkbox" className="w-4 h-4 text-theme-primary bg-bg-secondary border-border-primary rounded focus:ring-theme-primary focus:ring-2 accent-theme-primary" />
+            <span className="ml-2 text-sm text-text-secondary">Remember me</span>
+          </label>
+          <a href="#" className="text-sm font-medium text-theme-primary hover:text-theme-primary-hover transition-colors duration-200">
             Forgot password?
           </a>
         </div>
+
+        <div className="animate-fadeInUp px-8" style={{ animationDelay: '0.5s' }}>
           <button
             onClick={sendRequest}
-            className="mt-4 w-full text-lg h-12 rounded-md bg-black text-white hover:bg-gray-900"
+            className="w-full text-lg h-12 rounded-xl bg-theme-primary text-white hover:bg-theme-primary-hover transition-all duration-300 shadow-theme-md hover:shadow-theme-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:ring-offset-2 group"
             style={{ userSelect: 'none' }}
           >
-            Sign In
+            <span className="flex items-center justify-center gap-2">
+              Sign In
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </span>
           </button>
-          <div className="text-gray-600 text-lg mt-6 mb-8">
-            Don't have an account?
-            <Link className="pl-1 text-yellow-600 hover:underline hover:text-yellow-500" to={"/signup"}>
-              Sign up
-            </Link>
+        </div>
+
+        <div className="relative my-6 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-border-primary"></div>
           </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-bg-primary text-text-secondary">New to Medium?</span>
+          </div>
+        </div>
+
+        <div className="text-center animate-fadeInUp" style={{ animationDelay: '0.7s' }}>
+          <Link 
+            className="inline-flex items-center justify-center w-full h-12 px-4 text-sm font-medium text-text-primary bg-bg-secondary hover:bg-bg-tertiary border border-border-primary rounded-xl transition-all duration-200 hover:shadow-theme-sm group" 
+            to={"/signup"}
+          >
+            <span className="flex items-center gap-2">
+              Create an account
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </span>
+          </Link>
         </div>
       </div>
     </div>
@@ -129,16 +170,16 @@ export function LabelledInput({
   Icon,
 }: LabelledInputtype) {
   return (
-    <div className="mt-6">
-      <label htmlFor={id} className="block mb-1 text-start text-md font-medium text-gray-900">
+    <div>
+      <label htmlFor={id} className="block mb-3 text-base font-semibold text-text-primary tracking-wide">
         {label}
       </label>
-      <div className="relative">
-      <Icon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" size={20} />
+      <div className="relative group">
+        <Icon className="absolute left-4 top-1/2 transform -translate-y-1/2 text-text-secondary group-hover:text-theme-primary transition-colors duration-200" size={22} />
         <input
           type="text"
           id={id}
-          className="mb-4 border border-gray-300 text-gray-900 text-md rounded-md focus:border-gray-500 block w-[400px] px-10 py-2.5  outline-none"
+          className="w-full px-12 py-3 bg-bg-secondary border border-border-primary text-text-primary placeholder-text-tertiary rounded-xl focus:border-theme-primary focus:ring-2 focus:ring-theme-primary/20 focus:bg-bg-primary outline-none transition-all duration-200 hover:border-theme-primary/50 text-lg"
           placeholder={placeholder}
           onChange={onChange}
           required
@@ -160,20 +201,20 @@ export function LabelledInputPassword({
   const inputType = type === "password" && showPassword ? "text" : type;
   return (
     <div>
-      <label htmlFor={id} className="block mb-1 text-start text-md font-medium text-gray-900">
+      <label htmlFor={id} className="block mb-3 text-base font-semibold text-text-primary tracking-wide">
         {label}
       </label>
-      <div className="relative">
-      <Icon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" size={20} />
+      <div className="relative group">
+        <Icon className="absolute left-4 top-1/2 transform -translate-y-1/2 text-text-secondary group-hover:text-theme-primary transition-colors duration-200" size={22} />
         <input
           type={inputType}
           id={id}
-          className="mb-4 border border-gray-300 text-gray-900 text-md rounded-md focus:border-gray-500 block w-full py-2.5 px-10 outline-none"
+          className="w-full px-12 py-3 bg-bg-secondary border border-border-primary text-text-primary placeholder-text-tertiary rounded-xl focus:border-theme-primary focus:ring-2 focus:ring-theme-primary/20 focus:bg-bg-primary outline-none transition-all duration-200 hover:border-theme-primary/50 text-lg"
           placeholder={placeholder}
           onChange={onChange}
           required
         />
-        <div className="absolute inset-y-2 flex items-center right-0 mr-2" onClick={() => setShowPassword(prev => !prev)}>
+        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-text-secondary hover:text-theme-primary transition-colors duration-200" onClick={() => setShowPassword(prev => !prev)}>
           <Eyecomponent />
         </div>
       </div>
