@@ -10,6 +10,8 @@ export default {
         'custom-editor': ['Roboto', 'sans-serif'],
         'inter': ['Inter', 'sans-serif'],
         'serif': ['Georgia', 'serif'],
+        'playfair': ['Playfair Display', 'serif'],
+        'body': ['Inter', 'sans-serif'],
       },
       colors: {
         theme: {

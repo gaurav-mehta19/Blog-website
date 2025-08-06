@@ -69,18 +69,26 @@ export const HomePage = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         {/* Left Content */}
                         <div className="text-center lg:text-left">
-                            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif font-bold text-text-primary mb-6 leading-tight">
-                                Stay curious.
+                            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-playfair font-bold text-text-primary mb-6 leading-tight">
+                                Where stories find their voice.
                             </h1>
-                            <p className="text-xl sm:text-2xl text-text-secondary mb-8 leading-relaxed">
-                                Discover stories, thinking, and expertise from writers on any topic.
+                            <p className="text-xl sm:text-2xl font-inter text-text-secondary mb-8 leading-relaxed max-w-2xl">
+                                Join a vibrant community of writers and readers sharing ideas, insights, and stories that matter. Your thoughts deserve a beautiful home.
                             </p>
-                            <button 
-                                onClick={() => navigate('/signin')} 
-                                className="bg-theme-primary text-white font-semibold text-lg px-8 py-4 rounded-full transition-all duration-300 ease-in-out shadow-theme-lg hover:shadow-theme-xl transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:ring-offset-2"
-                            >
-                                Start reading
-                            </button>
+                            <div className="flex flex-col sm:flex-row gap-4 items-center lg:items-start">
+                                <button 
+                                    onClick={() => navigate('/signin')} 
+                                    className="bg-theme-primary hover:bg-theme-primary-hover text-white font-inter font-semibold text-lg px-10 py-4 rounded-full transition-all duration-300 ease-in-out shadow-theme-lg hover:shadow-theme-xl transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:ring-offset-2"
+                                >
+                                    Start Writing
+                                </button>
+                                <button 
+                                    onClick={() => navigate('/blogs')} 
+                                    className="bg-transparent border-2 border-theme-secondary hover:bg-theme-secondary-light text-theme-secondary hover:text-theme-secondary-hover font-inter font-semibold text-lg px-10 py-4 rounded-full transition-all duration-300 ease-in-out"
+                                >
+                                    Explore Stories
+                                </button>
+                            </div>
                         </div>
                         
                         {/* Right Decorative Icon */}
@@ -98,9 +106,9 @@ export const HomePage = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12">
                         <div className="flex items-center justify-center mb-6">
-                            <Fire className="h-8 w-8 text-theme-warning mr-3" />
-                            <h2 className="text-3xl font-bold text-theme-primary">
-                                Trending on Medium
+                            <Fire className="h-8 w-8 text-theme-primary mr-3" />
+                            <h2 className="text-4xl font-playfair font-bold text-text-primary">
+                                Trending Stories
                             </h2>
                         </div>
                         <Link to="/blogs" className="text-text-secondary hover:text-text-primary text-sm font-medium transition-colors duration-200">
@@ -137,11 +145,11 @@ export const HomePage = () => {
                                         </div>
                                     </div>
                                     
-                                    <h3 className="text-lg font-bold text-text-primary mb-2 group-hover:text-theme-primary transition-colors duration-200 line-clamp-2">
+                                    <h3 className="text-xl font-playfair font-bold text-text-primary mb-2 group-hover:text-theme-primary transition-colors duration-200 line-clamp-2">
                                         {article.title}
                                     </h3>
                                     
-                                    <p className="text-text-secondary text-sm leading-relaxed mb-3 line-clamp-3">
+                                    <p className="text-text-secondary font-inter text-sm leading-relaxed mb-3 line-clamp-3">
                                         {article.excerpt.slice(0, 120)}...
                                     </p>
                                     
@@ -163,11 +171,11 @@ export const HomePage = () => {
             <section className="py-20 px-4 bg-bg-primary">
                 <div className="max-w-7xl mx-auto text-center">
                     <div className="mb-16">
-                        <h2 className="text-4xl font-bold text-text-primary mb-4">
-                            Why Medium?
+                        <h2 className="text-4xl font-playfair font-bold text-text-primary mb-4">
+                            Why Choose Our Platform?
                         </h2>
-                        <p className="text-xl text-text-secondary">
-                            Join millions of readers and writers in our community of curious minds
+                        <p className="text-xl font-inter text-text-secondary">
+                            Join a warm community of thoughtful readers and creative writers
                         </p>
                     </div>
                     
@@ -176,10 +184,10 @@ export const HomePage = () => {
                             <div className="inline-flex items-center justify-center w-16 h-16 bg-theme-secondary/20 rounded-full mb-6">
                                 <Users className="h-8 w-8 text-theme-secondary" />
                             </div>
-                            <h3 className="text-2xl font-bold text-text-primary mb-4">
+                            <h3 className="text-2xl font-playfair font-bold text-text-primary mb-4">
                                 World-class authors
                             </h3>
-                            <p className="text-text-secondary text-base leading-relaxed mb-6">
+                            <p className="text-text-secondary font-inter text-base leading-relaxed mb-6">
                                 Connect with millions of readers and thought leaders. Share your stories, ideas, and expertise with a global audience.
                             </p>
                             <Link to="/blogs" className="text-theme-secondary hover:underline font-medium">
@@ -191,10 +199,10 @@ export const HomePage = () => {
                             <div className="inline-flex items-center justify-center w-16 h-16 bg-theme-success/20 rounded-full mb-6">
                                 <Star className="h-8 w-8 text-theme-success" />
                             </div>
-                            <h3 className="text-2xl font-bold text-text-primary mb-4">
+                            <h3 className="text-2xl font-playfair font-bold text-text-primary mb-4">
                                 Premium content
                             </h3>
-                            <p className="text-text-secondary text-base leading-relaxed mb-6">
+                            <p className="text-text-secondary font-inter text-base leading-relaxed mb-6">
                                 Access exclusive stories, in-depth analysis, and expert insights. Quality content curated just for you.
                             </p>
                             <Link to="/blogs" className="text-theme-success hover:underline font-medium">
@@ -206,10 +214,10 @@ export const HomePage = () => {
                             <div className="inline-flex items-center justify-center w-16 h-16 bg-theme-primary/20 rounded-full mb-6">
                                 <BookOpen className="h-8 w-8 text-theme-primary" />
                             </div>
-                            <h3 className="text-2xl font-bold text-text-primary mb-4">
+                            <h3 className="text-2xl font-playfair font-bold text-text-primary mb-4">
                                 Read anywhere
                             </h3>
-                            <p className="text-text-secondary text-base leading-relaxed mb-6">
+                            <p className="text-text-secondary font-inter text-base leading-relaxed mb-6">
                                 Enjoy Medium on all your devices. Save stories for later and keep your reading list synced everywhere.
                             </p>
                             <Link to="/blogs" className="text-theme-primary hover:underline font-medium">

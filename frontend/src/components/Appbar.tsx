@@ -8,15 +8,14 @@ import { useProfile } from "../hooks/profile";
 import { Skleton3 } from "./Skleton3";
 import { blogAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/blog";
 import { toast } from "sonner";
-import { BookOpen, Menu, X } from 'lucide-react';
+import { BookOpen, Menu, X, Search } from 'lucide-react';
 import { Pen } from 'lucide-react';
-import { ThemeToggle } from './ThemeToggle';
 import { useState } from 'react';
 
 export const Appbar = () => {
     const [showPopDownCard, setShowPopDownCard] = useRecoilState(popdowncardAtom);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
-    const { loading } = useProfile();
+    const { loading, profile } = useProfile();
     const location = useLocation();
 
     if (location.pathname !== '/') {
@@ -51,21 +50,42 @@ export const Appbar = () => {
                             <BookOpen className="h-6 w-6" />
                         </div>
                         <div className="hidden sm:block">
-                            <span className="text-xl font-bold text-text-primary tracking-tight">
+                            <span className="text-xl font-playfair font-bold text-text-primary tracking-tight">
                                 Medium
                             </span>
                         </div>
                     </Link>
 
+                    {/* Center Search Bar - Desktop (Only shown when logged in) */}
+                    {profile?.name && (
+                        <div className="hidden md:flex flex-1 max-w-lg mx-8">
+                            <div className="relative w-full">
+                                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-text-secondary" size={20} />
+                                <input
+                                    type="text"
+                                    placeholder="Search stories and writers..."
+                                    className="
+                                        w-full pl-12 pr-4 py-2.5 
+                                        bg-bg-secondary border border-border-primary
+                                        text-text-primary placeholder-text-tertiary
+                                        rounded-full font-inter
+                                        focus:border-theme-primary focus:ring-2 focus:ring-theme-primary/20
+                                        focus:bg-bg-primary outline-none
+                                        transition-all duration-200
+                                        hover:border-theme-primary/50
+                                    "
+                                />
+                            </div>
+                        </div>
+                    )}
+
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-6">
-                        <ThemeToggle />
                         <AppbarContent />
                     </div>
 
                     {/* Mobile Menu Button */}
                     <div className="md:hidden flex items-center gap-3">
-                        <ThemeToggle />
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
@@ -88,6 +108,25 @@ export const Appbar = () => {
             {showMobileMenu && (
                 <div className="md:hidden bg-bg-primary border-t border-border-primary shadow-theme-lg">
                     <div className="px-4 py-4 space-y-4">
+                        {/* Mobile Search (Only shown when logged in) */}
+                        {profile?.name && (
+                            <div className="relative">
+                                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-text-secondary" size={20} />
+                                <input
+                                    type="text"
+                                    placeholder="Search stories and writers..."
+                                    className="
+                                        w-full pl-12 pr-4 py-3
+                                        bg-bg-secondary border border-border-primary
+                                        text-text-primary placeholder-text-tertiary
+                                        rounded-full font-inter
+                                        focus:border-theme-primary focus:ring-2 focus:ring-theme-primary/20
+                                        focus:bg-bg-primary outline-none
+                                        transition-all duration-200
+                                    "
+                                />
+                            </div>
+                        )}
                         <MobileAppbarContent onClose={() => setShowMobileMenu(false)} />
                     </div>
                 </div>
@@ -149,13 +188,22 @@ function CreateBLogVisibility() {
                 onClick={handlePublish} 
                 className="
                     inline-flex items-center gap-2 px-6 py-2.5
-                    bg-theme-success hover:bg-theme-success-hover
-                    text-white font-medium rounded-lg
-                    shadow-theme-sm hover:shadow-theme-md
+                    text-white font-inter font-medium rounded-lg
+                    shadow-md hover:shadow-lg
                     transition-all duration-200
-                    focus:outline-none focus:ring-2 focus:ring-theme-success focus:ring-offset-2
+                    focus:outline-none focus:ring-2 focus:ring-offset-2
                     disabled:opacity-50 disabled:cursor-not-allowed
                 "
+                style={{
+                    backgroundColor: '#212529',
+                    borderColor: '#212529'
+                }}
+                onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#495057';
+                }}
+                onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#212529';
+                }}
             >
                 <Pen className="h-4 w-4" />
                 Publish Blog
@@ -170,7 +218,7 @@ function CreateBLogVisibility() {
                     inline-flex items-center gap-2 px-4 py-2
                     bg-bg-primary hover:bg-bg-secondary
                     text-text-primary border border-border-primary
-                    font-medium rounded-lg
+                    font-inter font-medium rounded-lg
                     shadow-theme-sm hover:shadow-theme-md
                     transition-all duration-200
                     focus:outline-none focus:ring-2 focus:ring-theme-primary focus:ring-offset-2
@@ -231,19 +279,19 @@ function AppbarContent() {
             <div className="flex items-center gap-6">
                 <Link 
                     to="/blogs" 
-                    className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium"
+                    className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-inter font-medium"
                 >
                     Our Story
                 </Link>
                 <Link 
                     to="/signin" 
-                    className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium"
+                    className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-inter font-medium"
                 >
                     Write
                 </Link>
                 <Link 
                     to="/signin" 
-                    className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium"
+                    className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-inter font-medium"
                 >
                     Sign In
                 </Link>
@@ -251,7 +299,7 @@ function AppbarContent() {
                     onClick={HandleTryOn} 
                     className="
                         bg-theme-primary hover:bg-theme-primary-hover
-                        text-white font-medium px-4 py-2 rounded-lg
+                        text-white font-inter font-medium px-4 py-2 rounded-lg
                         transition-all duration-200
                         shadow-theme-sm hover:shadow-theme-md
                         focus:outline-none focus:ring-2 focus:ring-theme-primary focus:ring-offset-2

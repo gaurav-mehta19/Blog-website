@@ -41,7 +41,7 @@ export const BlogCard = ({ authorName, title, content, publishedDate, id, firstI
                 {/* Author info */}
                 <div className="flex items-center gap-3 mb-4">
                     <Avatar name={authorName || "Anonymous"} />
-                    <div className="flex items-center gap-2 text-sm">
+                    <div className="flex items-center gap-2 text-sm font-inter">
                         <span className="font-medium text-text-primary">
                             {authorName || "Anonymous"}
                         </span>
@@ -61,7 +61,7 @@ export const BlogCard = ({ authorName, title, content, publishedDate, id, firstI
                     {/* Text content */}
                     <div className="flex-1 min-w-0">
                         <h2 className="
-                            text-xl sm:text-2xl font-bold font-serif
+                            text-xl sm:text-2xl font-bold font-playfair
                             text-text-primary group-hover:text-theme-primary
                             transition-colors duration-200
                             line-clamp-2 mb-3
@@ -71,7 +71,7 @@ export const BlogCard = ({ authorName, title, content, publishedDate, id, firstI
                         
                         <div 
                             className="
-                                text-text-secondary text-base leading-relaxed
+                                text-text-secondary font-inter text-base leading-relaxed
                                 line-clamp-3 mb-4
                             "
                             dangerouslySetInnerHTML={{ 
@@ -149,16 +149,16 @@ export const BlogCard = ({ authorName, title, content, publishedDate, id, firstI
 
 function Avatar({ name }: { name: string }) {
     const colors = [
-        'bg-gradient-to-br from-red-500 to-red-600',
-        'bg-gradient-to-br from-blue-500 to-blue-600',
-        'bg-gradient-to-br from-green-500 to-green-600',
-        'bg-gradient-to-br from-yellow-500 to-yellow-600',
-        'bg-gradient-to-br from-purple-500 to-purple-600',
-        'bg-gradient-to-br from-pink-500 to-pink-600',
-        'bg-gradient-to-br from-teal-500 to-teal-600',
-        'bg-gradient-to-br from-orange-500 to-orange-600',
-        'bg-gradient-to-br from-indigo-500 to-indigo-600',
-        'bg-gradient-to-br from-cyan-500 to-cyan-600'
+        'bg-gradient-to-br from-theme-primary to-theme-primary-hover',
+        'bg-gradient-to-br from-theme-secondary to-theme-secondary-hover',
+        'bg-gradient-to-br from-orange-400 to-orange-500',
+        'bg-gradient-to-br from-amber-400 to-amber-500',
+        'bg-gradient-to-br from-emerald-400 to-emerald-500',
+        'bg-gradient-to-br from-teal-400 to-teal-500',
+        'bg-gradient-to-br from-rose-400 to-rose-500',
+        'bg-gradient-to-br from-yellow-400 to-yellow-500',
+        'bg-gradient-to-br from-lime-400 to-lime-500',
+        'bg-gradient-to-br from-cyan-400 to-cyan-500'
     ];
 
     // Use a deterministic color based on the name to ensure consistency

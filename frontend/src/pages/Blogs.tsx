@@ -20,13 +20,13 @@ export function Blogs() {
                     }
                 }}
             >
-                <div className="max-w-4xl mx-auto">
+                <div className="max-w-7xl mx-auto">
                     {/* Header */}
                     <div className="mb-8 text-center">
-                        <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-2 animate-fadeInDown">
+                        <h1 className="text-3xl sm:text-4xl font-playfair font-bold text-text-primary mb-2 animate-fadeInDown">
                             Latest Stories
                         </h1>
-                        <p className="text-text-secondary animate-fadeInUp" style={{ animationDelay: '0.1s' }}>
+                        <p className="text-text-secondary font-inter animate-fadeInUp" style={{ animationDelay: '0.1s' }}>
                             Discover the latest articles from our community of writers
                         </p>
                     </div>
