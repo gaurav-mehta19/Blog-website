@@ -137,8 +137,8 @@ function AppbarContent() {
         try{
             const loadingToastId = toast.loading("Signing in as a test uses")
             await axios.post(`${BACKEND_URL}/api/v1/user/signin`,{
-                email:"testuser@gmail.com",
-                password:"testuser123"
+                email: import.meta.env.VITE_TEST_USER_EMAIL,
+                password: import.meta.env.VITE_TEST_USER_PASSWORD
             },{
                 withCredentials:true
             })
