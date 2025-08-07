@@ -91,7 +91,7 @@ export const TextEditor = ({ value, onChange }: { value: string; onChange: (valu
                 modules={modules}
                 formats={formats}
                 style={{ minHeight: '400px', height: 'auto', overflowY: 'visible' }}
-                className="h-96 text-xl text-gray-800 bg-white border border-gray-300 rounded-lg custom-quill"
+                className="h-96 text-xl text-text-primary bg-bg-secondary border-none rounded-xl custom-quill"
                 placeholder="Write your blog content here"
             />
         </div>
