@@ -57,8 +57,8 @@ export const Publish = () => {
                 <div className='mt-4 text-2xl text-gray-500'>Select text to change formatting, add headers, or create links.</div>
                 <div className='h-40'>
                     <img 
-                        src="/src/assets/Screenshot 2024-10-29 at 1.17.10 PM (1).png" 
-                        alt="Editor preview" 
+                        src="/editor-screenshot.png" 
+                        alt="Text editor preview showing formatting options" 
                         loading="lazy"
                         className="w-full h-full object-contain"
                     />

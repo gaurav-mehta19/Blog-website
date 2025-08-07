@@ -750,6 +750,16 @@ html {
     margin-bottom: 0.5rem;
 }
 
+/* Fix TextEditor paragraph font to match theme */
+.custom-quill .ql-editor p {
+    font-family: 'Inter', sans-serif !important;
+    color: var(--color-text-primary) !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
 /* Override Quill editor styles for FullBlog article content */
 .article-content .ql-editor p,
 .article-content p {
@@ -1209,11 +1219,21 @@ blockquote {
 
 /* Custom Quill Editor Bubble Theme - Force Override All Default Styles */
 .custom-quill .ql-editor::before {
-    color: var(--color-text-tertiary);
-    font-style: normal; 
-    font-size: 18px;  
-    font-family: 'Inter', sans-serif;
-    font-weight: 400; 
+    color: var(--color-text-tertiary) !important;
+    font-style: normal !important; 
+    font-size: 18px !important;  
+    font-family: 'Playfair Display', serif !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em !important;
+}
+
+/* Additional specificity for placeholder */
+.custom-quill.ql-container .ql-editor::before,
+.custom-quill .ql-container.ql-bubble .ql-editor::before {
+    color: var(--color-text-tertiary) !important;
+    font-family: 'Playfair Display', serif !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
 }
 
 /* Force remove ALL possible bubble theme borders with maximum specificity */
