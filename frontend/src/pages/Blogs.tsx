@@ -1,5 +1,5 @@
 import { Appbar } from "../components/Appbar";
-import { BlogCard } from "../components/BlogCard";
+import { VirtualizedBlogList } from "../components/VirtualizedBlogList";
 import { BlogCardSkeleton } from "../components/BlogCardSkeleton";
 import { useBlogs } from "../hooks/blog";
 import { popdowncardAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/popdownCard";
@@ -11,26 +11,48 @@ const searchAtom = atom<string>({
     default: ""
 });
 import { useRecoilState, useRecoilValue } from "recoil";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 
 export function Blogs() {
-    const { loading, blogs } = useBlogs();
+    const { loading, blogs, error, refetch } = useBlogs();
     const [showPopDownCard, setShowPopDownCard] = useRecoilState(popdowncardAtom);
     const searchQuery = useRecoilValue(searchAtom);
 
-    // Filter blogs based on search query
+    // Optimized search with title/author priority (debouncing already handled in Appbar)
     const filteredBlogs = useMemo(() => {
         if (!searchQuery.trim()) {
             return blogs;
         }
         
         const query = searchQuery.toLowerCase().trim();
-        return blogs.filter(blog => 
-            blog.title.toLowerCase().includes(query) ||
-            blog.content.toLowerCase().includes(query) ||
-            blog.author.name.toLowerCase().includes(query)
-        );
+        const results = blogs.filter(blog => {
+            const titleMatch = blog.title.toLowerCase().includes(query);
+            const authorMatch = blog.author.name.toLowerCase().includes(query);
+            // Only search content if title/author don't match (performance optimization)
+            const contentMatch = !titleMatch && !authorMatch && 
+                blog.content.toLowerCase().includes(query);
+            
+            return titleMatch || authorMatch || contentMatch;
+        });
+
+        // Sort results by relevance (title matches first, then author, then content)
+        return results.sort((a, b) => {
+            const aTitle = a.title.toLowerCase().includes(query);
+            const bTitle = b.title.toLowerCase().includes(query);
+            const aAuthor = a.author.name.toLowerCase().includes(query);
+            const bAuthor = b.author.name.toLowerCase().includes(query);
+            
+            if (aTitle && !bTitle) return -1;
+            if (bTitle && !aTitle) return 1;
+            if (aAuthor && !bAuthor) return -1;
+            if (bAuthor && !aAuthor) return 1;
+            return 0;
+        });
     }, [blogs, searchQuery]);
+
+    const handleRetry = useCallback(() => {
+        refetch();
+    }, [refetch]);
     
     return (
         <div className="min-h-screen bg-bg-secondary">
@@ -57,7 +79,29 @@ export function Blogs() {
                         </p>
                     </div>
 
-                    {loading ? (
+                    {error ? (
+                        <div className="text-center py-16 animate-fadeInUp">
+                            <div className="mb-6">
+                                <div className="w-24 h-24 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg className="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl font-semibold text-text-primary mb-2">
+                                    Failed to load blogs
+                                </h3>
+                                <p className="text-text-secondary mb-6">
+                                    {error}
+                                </p>
+                                <button 
+                                    onClick={handleRetry}
+                                    className="bg-theme-primary hover:bg-theme-primary-hover text-white font-medium py-3 px-6 rounded-lg transition-colors"
+                                >
+                                    Try Again
+                                </button>
+                            </div>
+                        </div>
+                    ) : loading ? (
                         <div className="space-y-2">
                             <BlogCardSkeleton />
                             <BlogCardSkeleton />
@@ -65,24 +109,10 @@ export function Blogs() {
                             <BlogCardSkeleton />
                         </div>
                     ) : filteredBlogs.length > 0 ? (
-                        <div className="space-y-2">
-                            {filteredBlogs.map((blog, index) => (
-                                <div 
-                                    key={blog.id} 
-                                    className="animate-fadeInUp"
-                                    style={{ animationDelay: `${index * 0.1}s` }}
-                                >
-                                    <BlogCard
-                                        id={blog.id}
-                                        authorName={blog.author.name}
-                                        title={blog.title}
-                                        content={blog.content}
-                                        publishedDate={blog.publishDate}
-                                        firstImgUrl={blog.image}
-                                    />
-                                </div>
-                            ))}
-                        </div>
+                        <VirtualizedBlogList 
+                            blogs={filteredBlogs} 
+                            searchQuery={searchQuery} 
+                        />
                     ) : (
                         <div className="text-center py-16 animate-fadeInUp">
                             <div className="mb-6">

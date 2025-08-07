@@ -7,6 +7,7 @@ import { popdowncardAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/po
 import { useProfile } from "../hooks/profile";
 import { Skleton3 } from "./Skleton3";
 import { blogAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/blog";
+import { preloadBlogs } from "../hooks/blog";
 import { toast } from "sonner";
 import { BookOpen, Menu, X, Search } from 'lucide-react';
 import { Pen } from 'lucide-react';
@@ -71,6 +72,7 @@ export const Appbar = () => {
                     {/* Logo */}
                     <Link 
                         to={location.pathname === '/' ? '#' : '/blogs'}
+                        onMouseEnter={() => preloadBlogs()} // Preload blogs data on hover
                         className="flex items-center gap-3 hover:opacity-80 transition-opacity duration-200"
                     >
                         <div className="p-2 rounded-lg bg-theme-primary text-white">
@@ -310,6 +312,7 @@ function AppbarContent() {
             <div className="flex items-center gap-6">
                 <Link 
                     to="/blogs" 
+                    onMouseEnter={() => preloadBlogs()} // Preload blogs data on hover
                     className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-inter font-medium"
                 >
                     Our Story
@@ -474,6 +477,7 @@ function MobileAppbarContent({ onClose }: { onClose: () => void }) {
             <div className="space-y-4">
                 <Link 
                     to="/blogs" 
+                    onMouseEnter={() => preloadBlogs()} // Preload blogs data on hover
                     onClick={onClose}
                     className="block text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium py-2"
                 >

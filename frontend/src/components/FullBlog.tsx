@@ -2,12 +2,12 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Blog } from "../hooks/blog";
 import { useRecoilState } from "recoil";
 import { deletepopAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/deletepopCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { toast } from "sonner";
 
-export const FullBlog = ({ blog }: { blog: Blog }) => {
+export const FullBlog = memo(({ blog }: { blog: Blog }) => {
     const navigate = useNavigate();
     const [showDeletePop, setShowDeletePop] = useRecoilState(deletepopAtom);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -191,4 +191,4 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
             </div>
         </div>
     );
-};
+});

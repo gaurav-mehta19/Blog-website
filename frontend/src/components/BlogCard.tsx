@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { memo } from "react";
 interface BlogCardtypes {
     id: string,
     authorName: string,
@@ -8,7 +9,7 @@ interface BlogCardtypes {
     firstImgUrl?: string;
 }
 
-export const BlogCard = ({ authorName, title, content, publishedDate, id, firstImgUrl }: BlogCardtypes) => {
+export const BlogCard = memo(({ authorName, title, content, publishedDate, id, firstImgUrl }: BlogCardtypes) => {
     const sanitizeContent = (html: string) => {
         return html
             .replace(/<(?!\/?p\b)[^>]*>/gi, '')
@@ -110,9 +111,9 @@ export const BlogCard = ({ authorName, title, content, publishedDate, id, firstI
             </article>
         </Link>
     );
-}
+});
 
-function Avatar({ name }: { name: string }) {
+const Avatar = memo(({ name }: { name: string }) => {
     const colors = [
         'bg-gradient-to-br from-theme-primary to-theme-primary-hover',
         'bg-gradient-to-br from-theme-secondary to-theme-secondary-hover',
@@ -143,4 +144,4 @@ function Avatar({ name }: { name: string }) {
             </span>
         </div>
     );
-}
+});

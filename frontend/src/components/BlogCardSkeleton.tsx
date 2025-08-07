@@ -5,6 +5,7 @@ export const BlogCardSkeleton = () => {
             rounded-lg p-6 mb-6 mx-auto max-w-4xl
             shadow-theme-sm
             animate-fadeInUp
+            animate-pulse
         ">
             {/* Author info skeleton */}
             <div className="flex items-center gap-3 mb-4">
