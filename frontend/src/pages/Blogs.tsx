@@ -3,11 +3,34 @@ import { BlogCard } from "../components/BlogCard";
 import { BlogCardSkeleton } from "../components/BlogCardSkeleton";
 import { useBlogs } from "../hooks/blog";
 import { popdowncardAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/popdownCard";
-import { useRecoilState } from "recoil";
+import { atom } from "recoil";
+
+// Create search atom locally since it's not yet published  
+const searchAtom = atom<string>({
+    key: "searchAtom",
+    default: ""
+});
+import { useRecoilState, useRecoilValue } from "recoil";
+import { useMemo } from "react";
 
 export function Blogs() {
     const { loading, blogs } = useBlogs();
     const [showPopDownCard, setShowPopDownCard] = useRecoilState(popdowncardAtom);
+    const searchQuery = useRecoilValue(searchAtom);
+
+    // Filter blogs based on search query
+    const filteredBlogs = useMemo(() => {
+        if (!searchQuery.trim()) {
+            return blogs;
+        }
+        
+        const query = searchQuery.toLowerCase().trim();
+        return blogs.filter(blog => 
+            blog.title.toLowerCase().includes(query) ||
+            blog.content.toLowerCase().includes(query) ||
+            blog.author.name.toLowerCase().includes(query)
+        );
+    }, [blogs, searchQuery]);
     
     return (
         <div className="min-h-screen bg-bg-secondary">
@@ -24,10 +47,13 @@ export function Blogs() {
                     {/* Header */}
                     <div className="mb-8 text-center">
                         <h1 className="text-3xl sm:text-4xl font-playfair font-bold text-text-primary mb-2 animate-fadeInDown">
-                            Latest Stories
+                            {searchQuery ? `Search Results for "${searchQuery}"` : 'Latest Stories'}
                         </h1>
                         <p className="text-text-secondary font-inter animate-fadeInUp" style={{ animationDelay: '0.1s' }}>
-                            Discover the latest articles from our community of writers
+                            {searchQuery 
+                                ? `Found ${filteredBlogs.length} ${filteredBlogs.length === 1 ? 'result' : 'results'}`
+                                : 'Discover the latest articles from our community of writers'
+                            }
                         </p>
                     </div>
 
@@ -38,9 +64,9 @@ export function Blogs() {
                             <BlogCardSkeleton />
                             <BlogCardSkeleton />
                         </div>
-                    ) : blogs.length > 0 ? (
+                    ) : filteredBlogs.length > 0 ? (
                         <div className="space-y-2">
-                            {blogs.map((blog, index) => (
+                            {filteredBlogs.map((blog, index) => (
                                 <div 
                                     key={blog.id} 
                                     className="animate-fadeInUp"
@@ -66,10 +92,13 @@ export function Blogs() {
                                     </svg>
                                 </div>
                                 <h3 className="text-xl font-semibold text-text-primary mb-2">
-                                    No stories yet
+                                    {searchQuery ? 'No results found' : 'No stories yet'}
                                 </h3>
                                 <p className="text-text-secondary mb-6">
-                                    Be the first to share your thoughts and stories with the community.
+                                    {searchQuery 
+                                        ? 'Try adjusting your search terms or browse all stories.'
+                                        : 'Be the first to share your thoughts and stories with the community.'
+                                    }
                                 </p>
                             </div>
                         </div>

@@ -10,13 +10,40 @@ import { blogAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/blog";
 import { toast } from "sonner";
 import { BookOpen, Menu, X, Search } from 'lucide-react';
 import { Pen } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { atom } from "recoil";
+
+// Create search atom locally since it's not yet published
+const searchAtom = atom<string>({
+    key: "searchAtom",
+    default: ""
+});
 
 export const Appbar = () => {
     const [showPopDownCard, setShowPopDownCard] = useRecoilState(popdowncardAtom);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
+    const [searchQuery, setSearchQuery] = useRecoilState(searchAtom);
+    const [localSearchQuery, setLocalSearchQuery] = useState("");
     const { loading, profile } = useProfile();
     const location = useLocation();
+
+    // Update local search when global search changes
+    useEffect(() => {
+        setLocalSearchQuery(searchQuery);
+    }, [searchQuery]);
+
+    const handleSearchChange = (value: string) => {
+        setLocalSearchQuery(value);
+    };
+
+    // Debounce search - update global state after 300ms delay
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            setSearchQuery(localSearchQuery);
+        }, 300);
+        
+        return () => clearTimeout(timeoutId);
+    }, [localSearchQuery, setSearchQuery]);
 
     if (location.pathname !== '/') {
         if (loading) {
@@ -63,6 +90,8 @@ export const Appbar = () => {
                                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-text-secondary" size={20} />
                                 <input
                                     type="text"
+                                    value={localSearchQuery}
+                                    onChange={(e) => handleSearchChange(e.target.value)}
                                     placeholder="Search stories and writers..."
                                     className="
                                         w-full pl-12 pr-4 py-2.5 
@@ -114,6 +143,8 @@ export const Appbar = () => {
                                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-text-secondary" size={20} />
                                 <input
                                     type="text"
+                                    value={localSearchQuery}
+                                    onChange={(e) => handleSearchChange(e.target.value)}
                                     placeholder="Search stories and writers..."
                                     className="
                                         w-full pl-12 pr-4 py-3
