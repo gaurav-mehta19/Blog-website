@@ -6,7 +6,7 @@ import { BACKEND_URL } from "../config";
 import { showPasswordAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/showPassword";
 import { useRecoilState } from "recoil";
 import { useRecoilValue } from "recoil";
-import { BookOpen,Lock } from 'lucide-react';
+import { BookOpen, Lock, FileText, UserRound } from 'lucide-react';
 import { toast } from "sonner";
 import { LucideIcon, Mail } from "lucide-react";
 
@@ -54,28 +54,29 @@ export const Signin = () => {
   }
 
   return (
-    <div className="bg-bg-primary flex items-center justify-center p-6 py-12">
-      <div className="w-full max-w-4xl">
-        <div className="bg-bg-primary border border-border-primary rounded-3xl shadow-theme-xl p-6 md:p-8 animate-fadeInUp">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
+      <div className="w-full max-w-4xl flex bg-white rounded-3xl shadow-2xl overflow-hidden max-h-[85vh]">
+        {/* Left Side - Form */}
+        <div className="w-full lg:w-1/2 p-8 lg:p-12">
           {/* Header */}
-          <div className="text-center mb-3">
-            <div className="mb-2">
-              <div className="w-10 h-10 bg-theme-primary rounded-full flex items-center justify-center mx-auto shadow-theme-lg animate-float">
-                <BookOpen className="h-5 w-5 text-white" />
+          <div className="text-center mb-8">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-theme-primary rounded-2xl flex items-center justify-center mx-auto shadow-lg">
+                <BookOpen className="h-8 w-8 text-white" />
               </div>
             </div>
-            <h1 className="text-lg font-playfair font-bold mb-1 text-text-primary">
-              Welcome back
+            <h1 className="text-3xl lg:text-4xl font-bold mb-3 text-gray-800">
+              Welcome back!
             </h1>
-            <p className="text-text-secondary font-inter text-xs">
-              Sign in to continue your journey
+            <p className="text-gray-600 text-lg">
+              Sign in to your account to continue your financial journey
             </p>
           </div>
 
           {/* Form */}
-          <div className="space-y-2">
+          <div className="space-y-6">
             {/* Email Input */}
-            <div className="animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
+            <div>
               <LabelledInput
                 id="signinEmail"
                 label="Email"
@@ -88,7 +89,7 @@ export const Signin = () => {
             </div>
 
             {/* Password Input */}
-            <div className="animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
+            <div>
               <LabelledInputPassword
                 id="signinPassword"
                 type={showPassword ? "text" : "password"}
@@ -101,62 +102,70 @@ export const Signin = () => {
               />
             </div>
 
-            {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
-              <label className="flex items-center">
-                <input 
-                  type="checkbox" 
-                  className="w-4 h-4 text-theme-primary bg-bg-secondary border-border-primary rounded focus:ring-theme-primary focus:ring-2 accent-theme-primary" 
-                />
-                <span className="ml-2 text-base font-inter text-text-secondary">Remember me</span>
-              </label>
+            {/* Forgot Password */}
+            <div className="text-right">
               <a 
                 href="#" 
-                className="text-base font-inter font-medium text-theme-primary hover:text-theme-primary-hover transition-colors duration-200"
+                className="text-theme-primary font-medium hover:text-theme-primary-hover transition-colors duration-200"
               >
                 Forgot password?
               </a>
             </div>
 
             {/* Sign In Button */}
-            <div className="animate-fadeInUp" style={{ animationDelay: '0.5s' }}>
+            <div className="pt-2">
               <button
                 onClick={sendRequest}
-                className="w-full font-inter font-semibold text-lg h-12 rounded-xl bg-theme-primary text-white hover:bg-theme-primary-hover transition-all duration-300 shadow-theme-md hover:shadow-theme-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:ring-offset-2"
-                style={{ userSelect: 'none' }}
+                className="w-full h-14 bg-theme-primary text-white font-semibold text-lg rounded-2xl hover:bg-theme-primary-hover transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-theme-primary/30"
               >
-                <span className="flex items-center justify-center gap-2">
-                  Sign In
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </span>
+                Sign In
               </button>
             </div>
 
-            {/* Divider */}
-            <div className="relative my-2 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-border-primary"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-bg-primary font-inter text-base text-text-secondary">Don't have an account?</span>
-              </div>
-            </div>
-
-            {/* Sign Up Link */}
-            <div className="animate-fadeInUp" style={{ animationDelay: '0.7s' }}>
-              <Link 
-                className="inline-flex items-center justify-center w-full h-12 text-lg font-inter font-medium text-text-primary bg-bg-secondary hover:bg-bg-tertiary border-2 border-border-primary rounded-xl transition-all duration-200 hover:shadow-theme-sm group" 
-                to={"/signup"}
-              >
-                <span className="flex items-center gap-2">
-                  Create new account
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </span>
+            {/* Create account link */}
+            <div className="text-center pt-6">
+              <span className="text-gray-600">Don't have an account? </span>
+              <Link to="/signup" className="text-theme-primary font-semibold hover:text-theme-primary-hover transition-colors">
+                Create one now
               </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Side - Features */}
+        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-theme-primary to-theme-primary-hover p-12 items-center justify-center">
+          <div className="text-white max-w-md">
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              Welcome Back to Medium
+            </h2>
+            <div className="space-y-6">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <FileText className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">Continue Writing</h3>
+                  <p className="text-white/80">Pick up where you left off with your drafts</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <UserRound className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">Your Network</h3>
+                  <p className="text-white/80">Connect with your followers and fellow writers</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <BookOpen className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">Personalized Feed</h3>
+                  <p className="text-white/80">Discover stories tailored to your interests</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -183,15 +192,15 @@ export function LabelledInput({
 }: LabelledInputtype) {
   return (
     <div className="w-full">
-      <label htmlFor={id} className="block mb-1 text-base font-inter font-semibold text-text-primary tracking-wide">
+      <label htmlFor={id} className="block mb-2 text-sm font-semibold text-gray-700">
         {label}
       </label>
-      <div className="relative group w-full">
-        <Icon className="absolute left-5 top-1/2 transform -translate-y-1/2 text-text-secondary group-hover:text-theme-primary transition-colors duration-200" size={24} />
+      <div className="relative">
+        <Icon className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
         <input
           type="text"
           id={id}
-          className="w-full pl-16 pr-6 py-4 bg-bg-secondary border-2 border-border-primary text-text-primary placeholder-text-tertiary rounded-xl focus:border-theme-primary focus:ring-2 focus:ring-theme-primary/20 focus:bg-bg-primary outline-none transition-all duration-200 hover:border-theme-primary/50 text-lg font-inter"
+          className="w-full pl-12 pr-4 py-4 bg-gray-50 border-2 border-gray-200 text-gray-800 placeholder-gray-500 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:bg-white outline-none transition-all duration-300 text-base"
           placeholder={placeholder}
           onChange={onChange}
           required
@@ -213,20 +222,20 @@ export function LabelledInputPassword({
   const inputType = type === "password" && showPassword ? "text" : type;
   return (
     <div className="w-full">
-      <label htmlFor={id} className="block mb-1 text-base font-inter font-semibold text-text-primary tracking-wide">
+      <label htmlFor={id} className="block mb-2 text-sm font-semibold text-gray-700">
         {label}
       </label>
-      <div className="relative group w-full">
-        <Icon className="absolute left-5 top-1/2 transform -translate-y-1/2 text-text-secondary group-hover:text-theme-primary transition-colors duration-200" size={24} />
+      <div className="relative">
+        <Icon className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
         <input
           type={inputType}
           id={id}
-          className="w-full pl-16 pr-16 py-4 bg-bg-secondary border-2 border-border-primary text-text-primary placeholder-text-tertiary rounded-xl focus:border-theme-primary focus:ring-2 focus:ring-theme-primary/20 focus:bg-bg-primary outline-none transition-all duration-200 hover:border-theme-primary/50 text-lg font-inter"
+          className="w-full pl-12 pr-12 py-4 bg-gray-50 border-2 border-gray-200 text-gray-800 placeholder-gray-500 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:bg-white outline-none transition-all duration-300 text-base"
           placeholder={placeholder}
           onChange={onChange}
           required
         />
-        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-text-secondary hover:text-theme-primary transition-colors duration-200" onClick={() => setShowPassword(prev => !prev)}>
+        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400 hover:text-gray-600 transition-colors duration-200" onClick={() => setShowPassword(prev => !prev)}>
           <Eyecomponent />
         </div>
       </div>
