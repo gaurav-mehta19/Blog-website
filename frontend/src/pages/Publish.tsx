@@ -36,7 +36,7 @@ export const Publish = () => {
                     onChange={(e) => setBlog(prev => ({ ...prev, title: e.target.value }))}
                     type="text"
                     id="blog-title"
-                    className="w-10/12 h-20 bg-white border border-gray-300 text-gray-800 text-3xl rounded-lg block pl-4 font-serif outline-none focus:border-gray-600 placeholder-[#a0aec0]"
+                    className="w-10/12 h-20 bg-bg-secondary border-none text-text-primary text-3xl rounded-xl block pl-6 font-playfair font-semibold outline-none placeholder-text-tertiary"
                     placeholder="Enter your blog title"
                 />
                 <TextEditor value={blog.content} onChange={handleContentChange} />
