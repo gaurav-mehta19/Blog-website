@@ -2,7 +2,7 @@ import { useRecoilState } from "recoil";
 import { popdowncardAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/popdownCard";
 import { Appbar } from "../components/Appbar";
 import { useProfile } from "../hooks/profile";
-import { Mail, User, FileText, Loader2, MapPin, Calendar } from "lucide-react";
+import { Mail, FileText, Loader2, Calendar } from "lucide-react";
 
 export const ProfilePage = () => {
     const { profile, loading } = useProfile();
