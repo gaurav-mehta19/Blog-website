@@ -54,26 +54,26 @@ export const Signin = () => {
   }
 
   return (
-    <div className="min-h-screen bg-bg-primary flex items-center justify-center p-4">
+    <div className="bg-bg-primary flex items-center justify-center p-6 py-12">
       <div className="w-full max-w-4xl">
-        <div className="bg-bg-primary border border-border-primary rounded-3xl shadow-theme-xl p-8 md:p-12 animate-fadeInUp">
+        <div className="bg-bg-primary border border-border-primary rounded-3xl shadow-theme-xl p-6 md:p-8 animate-fadeInUp">
           {/* Header */}
-          <div className="text-center mb-10">
-            <div className="mb-6">
-              <div className="w-16 h-16 bg-theme-primary rounded-full flex items-center justify-center mx-auto shadow-theme-lg animate-float">
-                <BookOpen className="h-8 w-8 text-white" />
+          <div className="text-center mb-3">
+            <div className="mb-2">
+              <div className="w-10 h-10 bg-theme-primary rounded-full flex items-center justify-center mx-auto shadow-theme-lg animate-float">
+                <BookOpen className="h-5 w-5 text-white" />
               </div>
             </div>
-            <h1 className="text-3xl font-playfair font-bold mb-2 text-text-primary">
+            <h1 className="text-lg font-playfair font-bold mb-1 text-text-primary">
               Welcome back
             </h1>
-            <p className="text-text-secondary font-inter">
+            <p className="text-text-secondary font-inter text-xs">
               Sign in to continue your journey
             </p>
           </div>
 
           {/* Form */}
-          <div className="space-y-8">
+          <div className="space-y-2">
             {/* Email Input */}
             <div className="animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
               <LabelledInput
@@ -122,7 +122,7 @@ export const Signin = () => {
             <div className="animate-fadeInUp" style={{ animationDelay: '0.5s' }}>
               <button
                 onClick={sendRequest}
-                className="w-full font-inter font-semibold text-xl h-16 rounded-xl bg-theme-primary text-white hover:bg-theme-primary-hover transition-all duration-300 shadow-theme-md hover:shadow-theme-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:ring-offset-2"
+                className="w-full font-inter font-semibold text-lg h-12 rounded-xl bg-theme-primary text-white hover:bg-theme-primary-hover transition-all duration-300 shadow-theme-md hover:shadow-theme-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:ring-offset-2"
                 style={{ userSelect: 'none' }}
               >
                 <span className="flex items-center justify-center gap-2">
@@ -135,7 +135,7 @@ export const Signin = () => {
             </div>
 
             {/* Divider */}
-            <div className="relative my-8 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
+            <div className="relative my-2 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-border-primary"></div>
               </div>
@@ -147,7 +147,7 @@ export const Signin = () => {
             {/* Sign Up Link */}
             <div className="animate-fadeInUp" style={{ animationDelay: '0.7s' }}>
               <Link 
-                className="inline-flex items-center justify-center w-full h-16 text-lg font-inter font-medium text-text-primary bg-bg-secondary hover:bg-bg-tertiary border-2 border-border-primary rounded-xl transition-all duration-200 hover:shadow-theme-sm group" 
+                className="inline-flex items-center justify-center w-full h-12 text-lg font-inter font-medium text-text-primary bg-bg-secondary hover:bg-bg-tertiary border-2 border-border-primary rounded-xl transition-all duration-200 hover:shadow-theme-sm group" 
                 to={"/signup"}
               >
                 <span className="flex items-center gap-2">
@@ -183,7 +183,7 @@ export function LabelledInput({
 }: LabelledInputtype) {
   return (
     <div className="w-full">
-      <label htmlFor={id} className="block mb-4 text-lg font-inter font-semibold text-text-primary tracking-wide">
+      <label htmlFor={id} className="block mb-1 text-base font-inter font-semibold text-text-primary tracking-wide">
         {label}
       </label>
       <div className="relative group w-full">
@@ -191,7 +191,7 @@ export function LabelledInput({
         <input
           type="text"
           id={id}
-          className="w-full pl-16 pr-6 py-5 bg-bg-secondary border-2 border-border-primary text-text-primary placeholder-text-tertiary rounded-xl focus:border-theme-primary focus:ring-2 focus:ring-theme-primary/20 focus:bg-bg-primary outline-none transition-all duration-200 hover:border-theme-primary/50 text-xl font-inter"
+          className="w-full pl-16 pr-6 py-4 bg-bg-secondary border-2 border-border-primary text-text-primary placeholder-text-tertiary rounded-xl focus:border-theme-primary focus:ring-2 focus:ring-theme-primary/20 focus:bg-bg-primary outline-none transition-all duration-200 hover:border-theme-primary/50 text-lg font-inter"
           placeholder={placeholder}
           onChange={onChange}
           required
@@ -213,7 +213,7 @@ export function LabelledInputPassword({
   const inputType = type === "password" && showPassword ? "text" : type;
   return (
     <div className="w-full">
-      <label htmlFor={id} className="block mb-4 text-lg font-inter font-semibold text-text-primary tracking-wide">
+      <label htmlFor={id} className="block mb-1 text-base font-inter font-semibold text-text-primary tracking-wide">
         {label}
       </label>
       <div className="relative group w-full">
@@ -221,7 +221,7 @@ export function LabelledInputPassword({
         <input
           type={inputType}
           id={id}
-          className="w-full pl-16 pr-16 py-5 bg-bg-secondary border-2 border-border-primary text-text-primary placeholder-text-tertiary rounded-xl focus:border-theme-primary focus:ring-2 focus:ring-theme-primary/20 focus:bg-bg-primary outline-none transition-all duration-200 hover:border-theme-primary/50 text-xl font-inter"
+          className="w-full pl-16 pr-16 py-4 bg-bg-secondary border-2 border-border-primary text-text-primary placeholder-text-tertiary rounded-xl focus:border-theme-primary focus:ring-2 focus:ring-theme-primary/20 focus:bg-bg-primary outline-none transition-all duration-200 hover:border-theme-primary/50 text-lg font-inter"
           placeholder={placeholder}
           onChange={onChange}
           required
