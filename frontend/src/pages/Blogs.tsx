@@ -65,7 +65,7 @@ export function Blogs() {
                     }
                 }}
             >
-                <div className="max-w-7xl mx-auto">
+                <div className="max-w-4xl mx-auto">
                     {/* Header */}
                     <div className="mb-8 text-center">
                         <h1 className="text-3xl sm:text-4xl font-playfair font-bold text-text-primary mb-2 animate-fadeInDown">
