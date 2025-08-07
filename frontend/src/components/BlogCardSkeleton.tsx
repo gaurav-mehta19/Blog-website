@@ -35,12 +35,7 @@ export const BlogCardSkeleton = () => {
                         <div className="bg-bg-tertiary w-2/3 h-4 rounded loading-skeleton"></div>
                     </div>
 
-                    {/* Action buttons skeleton */}
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                            <div className="bg-bg-tertiary w-6 h-6 rounded loading-skeleton"></div>
-                            <div className="bg-bg-tertiary w-6 h-6 rounded loading-skeleton"></div>
-                        </div>
+                    <div className="flex justify-end">
                         <div className="bg-bg-tertiary w-20 h-4 rounded loading-skeleton"></div>
                     </div>
                 </div>

@@ -158,23 +158,6 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
                             dangerouslySetInnerHTML={{ __html: blog.content as string }} 
                         />
                         
-                        {/* Action Buttons */}
-                        <div className="mt-12 pt-8 border-t border-border-primary">
-                            <div className="flex items-center gap-6">
-                                <button className="flex items-center gap-2 text-theme-primary hover:text-theme-primary-hover transition-colors">
-                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 18 18">
-                                        <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z" />
-                                    </svg>
-                                    <span className="font-medium">Like this story</span>
-                                </button>
-                                <button className="flex items-center gap-2 text-theme-secondary hover:text-theme-secondary-hover transition-colors">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                                    </svg>
-                                    <span className="font-medium">Save</span>
-                                </button>
-                            </div>
-                        </div>
                     </div>
 
                     {/* Sidebar with author info */}
