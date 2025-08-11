@@ -1,15 +1,13 @@
 import { Appbar } from "../components/Appbar";
 import { lazy, Suspense } from "react";
+import { Loading } from "../components/Loading";
 
 // Lazy load TextEditor to avoid loading heavy React Quill on initial app load
 const TextEditor = lazy(() => import("../components/TextEditor").then(m => ({ default: m.TextEditor })));
 
 const EditorLoader = () => (
   <div className="min-h-[200px] bg-bg-primary border border-border-primary rounded-lg flex items-center justify-center">
-    <div className="text-center">
-      <div className="w-8 h-8 border-2 border-theme-primary border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
-      <p className="text-sm text-text-secondary">Loading editor...</p>
-    </div>
+    <Loading variant="spinner" size="lg" text="Loading editor..." />
   </div>
 );
 

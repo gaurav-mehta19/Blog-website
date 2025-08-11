@@ -8,6 +8,7 @@ import { showPasswordAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/s
 import { useRecoilValue, useRecoilState } from "recoil";
 import { toast } from "sonner";
 import { Mail, Lock, UserRound, NotebookText, BookOpen, LucideIcon, FileText } from 'lucide-react';
+import { ButtonLoading } from "./Loading";
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ export const Signup = () => {
     password: "",
     description: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const showPassword = useRecoilValue(showPasswordAtom);
 
@@ -30,6 +32,7 @@ export const Signup = () => {
       return;
     }
 
+    setIsLoading(true);
     const loadingToastId = toast.loading("Creating account...");
     try {
       await axios.post(`${BACKEND_URL}/api/v1/user/signup`, postInputs, {
@@ -46,6 +49,8 @@ export const Signup = () => {
         console.error("An error occurred:", e);
         toast.error("An error occurred. Please try again later");
       }
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -124,10 +129,11 @@ export const Signup = () => {
             {/* Create Account Button */}
             <div className="pt-2">
               <button
-                className="w-full h-14 bg-theme-primary text-white font-semibold text-lg rounded-2xl hover:bg-theme-primary-hover transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-theme-primary/30"
+                className="w-full h-14 bg-theme-primary text-white font-semibold text-lg rounded-2xl hover:bg-theme-primary-hover transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-theme-primary/30 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
                 onClick={handleSubmit}
+                disabled={isLoading}
               >
-                Create Account
+                {isLoading ? <ButtonLoading text="Creating account..." /> : "Create Account"}
               </button>
             </div>
 

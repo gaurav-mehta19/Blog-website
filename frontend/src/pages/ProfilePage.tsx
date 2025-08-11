@@ -2,21 +2,15 @@ import { useRecoilState } from "recoil";
 import { popdowncardAtom } from "@gaurav_mehta/medium-common/dist/store/atoms/popdownCard";
 import { Appbar } from "../components/Appbar";
 import { useProfile } from "../hooks/profile";
-import { Mail, FileText, Loader2, Calendar } from "lucide-react";
+import { Mail, FileText, Calendar } from "lucide-react";
+import { FullScreenLoading } from "../components/Loading";
 
 export const ProfilePage = () => {
     const { profile, loading } = useProfile();
     const [showPopDownCard, setShowPopDownCard] = useRecoilState(popdowncardAtom);
 
     if (loading) {
-        return (
-            <div className="min-h-screen bg-bg-primary flex items-center justify-center">
-                <div className="flex flex-col items-center gap-4">
-                    <Loader2 className="w-12 h-12 animate-spin text-theme-primary" />
-                    <p className="font-inter text-text-secondary">Loading profile...</p>
-                </div>
-            </div>
-        );
+        return <FullScreenLoading text="Loading profile..." />;
     }
 
     return (

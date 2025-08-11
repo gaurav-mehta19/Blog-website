@@ -9,6 +9,7 @@ import { useRecoilValue } from "recoil";
 import { BookOpen, Lock, FileText, UserRound } from 'lucide-react';
 import { toast } from "sonner";
 import { LucideIcon, Mail } from "lucide-react";
+import { ButtonLoading } from "./Loading";
 
 export const Signin = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ export const Signin = () => {
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   async function sendRequest() {
     if (postInputs.email.trim().length < 1 || postInputs.password.trim().length < 1) {
@@ -28,6 +30,7 @@ export const Signin = () => {
       return;
     }
 
+    setIsLoading(true);
     const loadingToastId = toast.loading("Signing in...");
 
     try {
@@ -50,6 +53,8 @@ export const Signin = () => {
         console.error("An error occurred:", e);
         toast.error("An error occurred. Please try again later");
       }
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -116,9 +121,10 @@ export const Signin = () => {
             <div className="pt-2">
               <button
                 onClick={sendRequest}
-                className="w-full h-14 bg-theme-primary text-white font-semibold text-lg rounded-2xl hover:bg-theme-primary-hover transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-theme-primary/30"
+                disabled={isLoading}
+                className="w-full h-14 bg-theme-primary text-white font-semibold text-lg rounded-2xl hover:bg-theme-primary-hover transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-theme-primary/30 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
               >
-                Sign In
+                {isLoading ? <ButtonLoading text="Signing in..." /> : "Sign In"}
               </button>
             </div>
 

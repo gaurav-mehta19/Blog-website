@@ -1,16 +1,12 @@
 import { Navigate } from "react-router-dom";
 import { useProfile } from "../hooks/profile";
-import { Loader } from "lucide-react";
+import { FullScreenLoading } from "./Loading";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { loading, statusCode } = useProfile();
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader className="w-8 h-8 animate-spin text-gray-600" />
-      </div>
-    );
+    return <FullScreenLoading text="Authenticating..." />;
   }
 
   // 🚀 Redirect only if statusCode is 405
